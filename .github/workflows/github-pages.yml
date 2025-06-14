@@ -1,0 +1,33 @@
+# .github/workflows/github-pages.yml
+
+name: github pages
+
+on:
+  push:
+    branches:
+      - main  # or master, depending on your repo
+  workflow_dispatch:
+
+jobs:
+  jekyll:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'  # or 3.0, depending on your Gemfile.lock
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Build site with Jekyll
+        run: bundle exec jekyll build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site

@@ -1,1 +1,1 @@
-[{"name":"Home","sticker":"ui//home","paths":["/"]},{"sticker":"emoji//1f648","name":"Project","paths":[]},{"sticker":"emoji//1f649","name":"Materials","paths":[]},{"sticker":"emoji//1f64a","name":"Other","paths":[]}]
+[{"name":"Home","sticker":"emoji//1f3e0","paths":["/","Templete"]},{"sticker":"emoji//1f648","name":"Project","paths":["projects","_projects"]},{"sticker":"emoji//1f649","name":"Materials","paths":["_posts"]},{"sticker":"emoji//1f64a","name":"Other","paths":[]}]

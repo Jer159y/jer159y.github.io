@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "2732704f6c552eb1",
+        "id": "358bfdc14aea5774",
         "type": "tabs",
         "children": [
           {
-            "id": "d797518e55786671",
+            "id": "22a9681d89b9f769",
             "type": "leaf",
             "state": {
               "type": "mk-space",
@@ -73,7 +73,7 @@
             }
           },
           {
-            "id": "842ea7bd071b1455",
+            "id": "828867fcd59a5e20",
             "type": "leaf",
             "state": {
               "type": "mk-path-view",
@@ -84,6 +84,22 @@
           }
         ],
         "currentTab": 3
+      },
+      {
+        "id": "bdc544b862660e05",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3a62b5c23504d14d",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ]
       }
     ],
     "direction": "horizontal",
@@ -202,12 +218,41 @@
       "daily-notes:오늘의 일일 노트 열기": false,
       "templates:템플릿 삽입": false,
       "command-palette:명령어 팔레트 열기": false,
-      "obsidian-git:Open Git source control": false,
-      "graph:그래프 뷰 열기": false
+      "graph:그래프 뷰 열기": false,
+      "obsidian-git:Open Git source control": false
     }
   },
-  "active": "d797518e55786671",
+  "active": "22a9681d89b9f769",
   "lastOpenFiles": [
+    "_posts/2018-12-22-distill.md",
+    "_posts/2023-03-20-table-of-contents.md",
+    "_posts/2023-04-25-audios.md",
+    "_posts/2023-04-24-videos.md",
+    "_posts/2023-03-21-tables.md",
+    "_posts/2023-05-12-custom-blockquotes.md",
+    "_posts/2023-07-04-jupyter-notebook.md",
+    "_posts/2023-07-12-post-bibliography.md",
+    "_posts/2024-01-26-echarts.md",
+    "_posts/2023-04-25-sidebar-table-of-contents.md",
+    "_posts/2024-04-29-typograms.md",
+    "_posts/2025-03-26-plotly.md",
+    "_posts/2024-05-01-tabs.md",
+    "_posts/2024-12-04-photo-gallery.md",
+    "_posts/2024-04-15-pseudocode.md",
+    "_posts/2024-01-27-code-diff.md",
+    "_posts/2024-01-27-vega-lite.md",
+    "_posts/2024-01-26-geojson-map.md",
+    "_posts/2024-01-26-chartjs.md",
+    "Templete/Material Post.md",
+    "_posts/2015-10-20-disqus-comments.md",
+    "Templete/Templete.md",
+    "_posts/2015-03-15-formatting-and-links.md",
+    "_posts/2015-10-20-math.md",
+    "_projects/2_project.md",
+    "_projects/3_project.md",
+    "_projects/1_project",
+    "Templete",
+    "projects",
     "Tags"
   ]
 }

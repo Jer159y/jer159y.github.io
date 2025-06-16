@@ -6,7 +6,7 @@ img: assets/img/12.jpg
 importance: 1
 category: DynamicalSystems
 related_publications: true
-comments: true
+giscus_comments: true
 ---
 
 Every project has a beautiful feature showcase page.

@@ -23,6 +23,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/projects/";
           },
+        },{id: "nav-articles",
+          title: "articles",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/articles/";
+          },
         },{id: "dropdown-bookshelf",
               title: "bookshelf",
               description: "",
@@ -30,33 +37,12 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/books/";
               },
-            },{id: "dropdown-cv",
-              title: "cv",
-              description: "",
-              section: "Dropdown",
-              handler: () => {
-                window.location.href = "/cv/";
-              },
-            },{id: "dropdown-news",
-              title: "news",
-              description: "",
-              section: "Dropdown",
-              handler: () => {
-                window.location.href = "/news/";
-              },
             },{id: "dropdown-respositories",
               title: "respositories",
               description: "",
               section: "Dropdown",
               handler: () => {
                 window.location.href = "/repositories/";
-              },
-            },{id: "dropdown-teaching",
-              title: "teaching",
-              description: "",
-              section: "Dropdown",
-              handler: () => {
-                window.location.href = "/teaching/";
               },
             },{id: "post-a-post-with-plotly-js",
         
@@ -421,7 +407,12 @@ ninja.data = [{
             window.location.href = "/blog/2015/formatting-and-links/";
           
         },
-      },{id: "books-the-godfather",
+      },{id: "articles-project-1",
+          title: 'project 1',
+          description: "with background image",
+          section: "Articles",handler: () => {
+              window.location.href = "/articles/1_project/";
+            },},{id: "books-the-godfather",
           title: 'The Godfather',
           description: "",
           section: "Books",handler: () => {
@@ -442,7 +433,7 @@ ninja.data = [{
         title: 'email',
         section: 'Socials',
         handler: () => {
-          window.open("mailto:%79%6F%75@%65%78%61%6D%70%6C%65.%63%6F%6D", "_blank");
+          window.open("mailto:%6C%6F%6F%61%63%6B%65%72%30%39@%75%6E%69%73%74.%61%63.%6B%72", "_blank");
         },
       },{
         id: 'social-inspire',

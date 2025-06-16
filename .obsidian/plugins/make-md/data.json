@@ -22,7 +22,7 @@
   "spacesEnabled": true,
   "syncFormulaToFrontmatter": true,
   "spacesPerformance": false,
-  "currentWaypoint": 0,
+  "currentWaypoint": 2,
   "enableFolderNote": true,
   "folderIndentationLines": true,
   "revealActiveFile": false,
@@ -43,7 +43,8 @@
     "//_projects",
     "//_projects/_projects/1_project",
     "Templete",
-    "_projects"
+    "_projects",
+    "_posts"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",

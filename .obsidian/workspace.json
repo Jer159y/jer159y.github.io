@@ -11,12 +11,14 @@
             "id": "22a9681d89b9f769",
             "type": "leaf",
             "state": {
-              "type": "mk-space",
+              "type": "markdown",
               "state": {
-                "path": "_projects"
+                "file": "_posts/동역학계 (Dynamical systems).md",
+                "mode": "source",
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "_projects"
+              "title": "동역학계 (Dynamical systems)"
             }
           }
         ]
@@ -31,6 +33,7 @@
       {
         "id": "bc5eeea056472a9c",
         "type": "tabs",
+        "dimension": 64.75409836065575,
         "children": [
           {
             "id": "eb40b9a31707d131",
@@ -73,7 +76,7 @@
             }
           },
           {
-            "id": "828867fcd59a5e20",
+            "id": "5bb1a6a161735087",
             "type": "leaf",
             "state": {
               "type": "mk-path-view",
@@ -88,6 +91,7 @@
       {
         "id": "bdc544b862660e05",
         "type": "tabs",
+        "dimension": 35.24590163934426,
         "children": [
           {
             "id": "3a62b5c23504d14d",
@@ -103,7 +107,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "5baf43373dd67aed",
@@ -151,6 +156,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "_posts/동역학계 (Dynamical systems).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -160,7 +166,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "백링크"
+              "title": "동역학계 (Dynamical systems) 의 백링크"
             }
           },
           {
@@ -209,7 +215,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -224,6 +231,9 @@
   },
   "active": "22a9681d89b9f769",
   "lastOpenFiles": [
+    "_posts/2015-10-20-math.md",
+    "_posts/동역학계 (Dynamical systems).md",
+    "_posts/2015-10-20-disqus-comments.md",
     "_posts/2018-12-22-distill.md",
     "_posts/2023-03-20-table-of-contents.md",
     "_posts/2023-04-25-audios.md",
@@ -244,12 +254,9 @@
     "_posts/2024-01-26-geojson-map.md",
     "_posts/2024-01-26-chartjs.md",
     "Templete/Material Post.md",
-    "_posts/2015-10-20-disqus-comments.md",
     "Templete/Templete.md",
     "_posts/2015-03-15-formatting-and-links.md",
-    "_posts/2015-10-20-math.md",
     "_projects/2_project.md",
-    "_projects/3_project.md",
     "_projects/1_project",
     "Templete",
     "projects",

@@ -2,7 +2,7 @@
 # Site settings
 # -----------------------------------------------------------------------------
 
-title: Knockin' on Heaven's Door # the website title (if blank, full name will be used instead)
+title: S'Box # the website title (if blank, full name will be used instead)
 first_name: soobin
 middle_name: # optional middle name
 last_name: choi
@@ -87,7 +87,7 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 # -----------------------------------------------------------------------------
 
 blog_name: Learning Materials # blog_name will be displayed in your blog page
-blog_description: A collection of my learning materials, notes, and thoughts.
+blog_description: 
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
 
@@ -102,10 +102,10 @@ related_blog_posts:
 # Giscus comments (RECOMMENDED)
 # Follow instructions on https://giscus.app/ to setup for your repo to fill out the information below.
 giscus:
-  repo: # <your-github-user-name>/<your-github-repo-name>
-  repo_id: # leave empty or specify your repo_id (see https://giscus.app/)
-  category: Comments # name of the category under which discussions will be created
-  category_id: # leave empty or specify your category_id (see https://giscus.app/)
+  repo: jer159y/jer159y.github.io # <your-github-user-name>/<your-github-repo-name>
+  repo_id: R_kgDOO7XLnw # leave empty or specify your repo_id (see https://giscus.app/)
+  category: General # name of the category under which discussions will be created
+  category_id: DIC_kwDOO7XLn84Crj9o # leave empty or specify your category_id (see https://giscus.app/)
   mapping: title # identify discussions by post title
   strict: 1 # use strict identification mode
   reactions_enabled: 1 # enable (1) or disable (0) emoji reactions
@@ -150,6 +150,8 @@ collections:
       layout: post
     output: true
   projects:
+    output: true
+  articles:
     output: true
 
 # -----------------------------------------------------------------------------

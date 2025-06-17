@@ -1,7 +1,3 @@
----
-permalink: /robots.txt
----
 User-agent: *
-Disallow:
-
-Sitemap: {{ site.baseurl | prepend: site.url }}/sitemap.xml
+Allow: /
+Sitemap: https://yenarue.github.io/sitemap.xml

@@ -76,13 +76,16 @@
             }
           },
           {
-            "id": "26f897b9a0a5af2f",
+            "id": "f283e2413d62603d",
             "type": "leaf",
             "state": {
-              "type": "mk-path-view",
-              "state": {},
-              "icon": "layout-grid",
-              "title": "Navigator"
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "파일 탐색기"
             }
           }
         ],
@@ -107,8 +110,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "5baf43373dd67aed",

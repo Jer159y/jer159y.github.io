@@ -1,0 +1,15 @@
+#!/bin/sh
+set -eu
+
+cd "$(dirname "$0")/.."
+
+ruby_bin="$(brew --prefix ruby@3.3)/bin"
+export PATH="$PWD/vendor/jekyll-python/bin:$ruby_bin:$PATH"
+export BUNDLE_PATH=vendor/bundle
+
+if ! command -v jupyter >/dev/null 2>&1; then
+  echo "nbconvert is missing. Run: python3 -m venv vendor/jekyll-python && vendor/jekyll-python/bin/pip install nbconvert" >&2
+  exit 1
+fi
+
+exec bundle exec jekyll serve "$@"

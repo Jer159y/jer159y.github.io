@@ -2,31 +2,56 @@
 layout: about
 title: about
 permalink: /
-subtitle: Trying stuff just because.
+subtitle: Mathematics · nonlinear dynamics · computing
 
 profile:
   align: right
   image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
-  more_info: >
-    <p>50 UNIST-gil, Eonyang-eup</p>
-    <p>Ulsan, Ulju-gun 44919</p>
+  image_circular: false
 
-
-selected_papers: true # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page
+selected_papers: false
+social: true
 
 announcements:
-  enabled: true # includes a list of news items
-  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
+  enabled: false
+  scrollable: true
+  limit: 5
 
 latest_posts:
-  enabled: true
-  scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
-  limit: 3 # leave blank to include all the blog posts
+  enabled: false
+  scrollable: true
+  limit: 3
 ---
 
-I am an integrated M.S.-Ph.D. student in the Department of Mathematical Sciences at UNIST. My research interests lie primarily in nonlinear dynamics, with a focus on `reservoir computing` and `signal processing.`
+<div class="home-intro">
+  <p class="home-eyebrow">SOOBIN CHOI / UNIST</p>
+  <h2>Exploring how dynamic systems compute.</h2>
+  <p>I am an integrated M.S.–Ph.D. student in Mathematical Sciences at UNIST. My interests include nonlinear dynamics, reservoir computing, and signal processing. I am currently exploring spiking neural networks and hardware based implementations of computational systems.</p>
+  <div class="home-actions">
+    <a class="home-button home-button-primary" href="{{ '/cv/' | relative_url }}">View CV <span aria-hidden="true">↗</span></a>
+    <a class="home-button" href="{{ '/projects/' | relative_url }}">Explore projects <span aria-hidden="true">↗</span></a>
+  </div>
+</div>
 
-Recently, I have been particularly interested in reservoir computing based on `spiking neural networks`. I am also exploring the integration of hardware- or on-chip-based system simulations with existing computational frameworks. Through this, I aim to investigate how such implementations differ from traditional `mathematical modeling`.
+<div class="home-section-heading">
+  <p class="home-eyebrow">EXPLORE</p>
+  <h2>Work, background, and notes</h2>
+</div>
+
+<div class="home-link-grid">
+  <a class="home-link-card" href="{{ '/cv/' | relative_url }}">
+    <span class="home-card-number">01 / BACKGROUND</span>
+    <h3>Curriculum vitae <span aria-hidden="true">↗</span></h3>
+    <p>Education, research interests, and contact details.</p>
+  </a>
+  <a class="home-link-card" href="{{ '/projects/' | relative_url }}">
+    <span class="home-card-number">02 / WORK</span>
+    <h3>Projects <span aria-hidden="true">↗</span></h3>
+    <p>Research and experiments as they become ready to share.</p>
+  </a>
+  <a class="home-link-card" href="{{ '/blog/' | relative_url }}">
+    <span class="home-card-number">03 / WRITING</span>
+    <h3>Notes <span aria-hidden="true">↗</span></h3>
+    <p>Ideas, learning materials, and things worth explaining.</p>
+  </a>
+</div>

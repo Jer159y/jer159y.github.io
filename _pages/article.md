@@ -3,7 +3,7 @@ layout: page
 permalink: /articles/
 title: articles
 description:
-nav: true
+nav: false
 nav_order: 6
 display_categories: [DynamicalSystems]
 horizontal: false

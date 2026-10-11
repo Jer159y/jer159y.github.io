@@ -1,4 +1,5 @@
 ---
+published: false # example or unfinished draft; set true when ready to publish
 layout: post
 title: a post with bibliography
 date: 2023-07-12 09:56:00-0400

@@ -1,0 +1,136 @@
+.home-intro {
+  max-width: 40rem;
+  padding: 1rem 0 3rem;
+
+  h2 {
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1.1;
+    margin: 0 0 1.25rem;
+  }
+
+  > p:not(.home-eyebrow) {
+    color: var(--global-text-color-light);
+    font-size: 1.08rem;
+    line-height: 1.8;
+  }
+}
+
+.home-eyebrow,
+.home-card-number {
+  color: var(--global-theme-color);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.home-button {
+  align-items: center;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 0.55rem;
+  color: var(--global-text-color);
+  display: inline-flex;
+  gap: 1.4rem;
+  padding: 0.75rem 1rem;
+
+  &:hover {
+    border-color: var(--global-theme-color);
+    color: var(--global-theme-color);
+    text-decoration: none;
+  }
+}
+
+.home-button-primary {
+  background: var(--global-theme-color);
+  border-color: var(--global-theme-color);
+  color: var(--global-hover-text-color);
+
+  &:hover {
+    background: var(--global-hover-color);
+    color: var(--global-hover-text-color);
+  }
+}
+
+.home-section-heading {
+  border-top: 1px solid var(--global-divider-color);
+  padding-top: 1.7rem;
+
+  h2 {
+    font-size: 1.65rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
+.home-link-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 2.5rem;
+}
+
+.home-link-card,
+.empty-state {
+  background: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 0.75rem;
+  padding: 1.4rem;
+}
+
+.home-link-card {
+  color: var(--global-text-color);
+  min-height: 12rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+
+  h3 {
+    display: flex;
+    font-size: 1.25rem;
+    justify-content: space-between;
+    margin: 1.5rem 0 0.6rem;
+  }
+
+  p {
+    color: var(--global-text-color-light);
+    font-size: 0.92rem;
+    margin: 0;
+  }
+
+  &:hover {
+    border-color: var(--global-theme-color);
+    color: var(--global-text-color);
+    text-decoration: none;
+    transform: translateY(-3px);
+  }
+}
+
+.empty-state {
+  margin: 1.5rem 0;
+  padding: 2rem;
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  p:last-child {
+    color: var(--global-text-color-light);
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-link-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-link-card {
+    min-height: 0;
+  }
+}

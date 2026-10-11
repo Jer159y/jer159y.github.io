@@ -1,4 +1,5 @@
 ---
+published: false # example or unfinished draft; set true when ready to publish
 layout: post
 title: a post with image galleries
 date: 2024-12-04 01:59:00

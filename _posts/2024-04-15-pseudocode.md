@@ -1,4 +1,5 @@
 ---
+published: false # example or unfinished draft; set true when ready to publish
 layout: post
 title: a post with pseudo code
 date: 2024-04-15 00:01:00

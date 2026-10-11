@@ -1,4 +1,5 @@
 ---
+published: false # example or unfinished draft; set true when ready to publish
 layout: post
 title: a post with custom blockquotes
 date: 2023-05-12 15:53:00-0400

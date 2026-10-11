@@ -1,4 +1,5 @@
 ---
+published: false # example or unfinished draft; set true when ready to publish
 layout: post
 title: a post with formatting and links
 date: 2015-03-15 16:40:16

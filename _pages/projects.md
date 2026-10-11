@@ -2,12 +2,19 @@
 layout: page
 title: projects
 permalink: /projects/
-description:
+description: Research and experiments I want to share.
 nav: true
-nav_order: 3
-display_categories: [Research, Sandbox]
+nav_order: 2
 horizontal: true
 ---
+
+{% if site.projects.size == 0 %}
+<div class="empty-state">
+  <p class="home-eyebrow">PROJECTS</p>
+  <h2>Projects are on their way.</h2>
+  <p>I am preparing a selection of research and experiments to share here.</p>
+</div>
+{% endif %}
 
 <!-- pages/projects.md -->
 <div class="projects">

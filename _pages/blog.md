@@ -1,9 +1,9 @@
 ---
 layout: default
 permalink: /blog/
-title: materials
+title: notes
 nav: true
-nav_order: 1
+nav_order: 3
 pagination:
   enabled: true
   collection: posts
@@ -28,6 +28,14 @@ pagination:
     <h2>{{ site.blog_description }}</h2>
   </div>
   {% endif %}
+
+{% if site.posts.size == 0 %}
+<div class="empty-state">
+  <p class="home-eyebrow">WRITING</p>
+  <h2>Notes are on their way.</h2>
+  <p>I will collect learning materials and ideas worth sharing here.</p>
+</div>
+{% endif %}
 
 {% if site.display_tags and site.display_tags.size > 0 or site.display_categories and site.display_categories.size > 0 %}
 

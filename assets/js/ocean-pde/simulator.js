@@ -73,14 +73,16 @@ function renderFrame(){
 function renderMetrics(){if(!latest)return;const m=latest.metrics,base=initialMetrics;const ratio=(a,b)=>Math.abs(b)>1e-15?(a/b).toFixed(4):'—';
  $('sim-metrics').innerHTML=`<div><small>ENERGY / E₀</small><b>${ratio(m.energy,base.energy)}</b></div><div><small>ENSTROPHY / Z₀</small><b>${ratio(m.enstrophy,base.enstrophy)}</b></div><div><small>${model==='swe'?'MASS REL. ERROR':'MAX SPEED'}</small><b>${model==='swe'?((m.mass-base.mass)/base.mass).toExponential(1):m.maxSpeed.toFixed(3)}</b></div>`;
 }
+function themeColor(name,fallback){return getComputedStyle(document.documentElement).getPropertyValue(name).trim()||fallback;}
 function drawChart(){
- const W=plot.width,H=plot.height,left=55,right=16,top=20,bottom=34;pctx.clearRect(0,0,W,H);pctx.fillStyle='#f3f6ef';pctx.fillRect(0,0,W,H);
+ const W=plot.width,H=plot.height,left=55,right=16,top=20,bottom=34;pctx.clearRect(0,0,W,H);
+ const grid=themeColor('--global-divider-color','#dbe3d7'),label=themeColor('--global-text-color-light','#6d7d73');
  if(!history.length)return;const E=initialMetrics.energy||1,Z=initialMetrics.enstrophy||1;
  const end=Math.max(1,history.at(-1).t);let max=1.1;for(const m of history)max=Math.max(max,m.energy/E*1.05,m.enstrophy/Z*1.05);
  pctx.font='12px monospace';pctx.lineWidth=1;
- for(let i=0;i<=4;i++){const y=top+(H-top-bottom)*i/4;pctx.strokeStyle='#dbe3d7';pctx.beginPath();pctx.moveTo(left,y);pctx.lineTo(W-right,y);pctx.stroke();pctx.fillStyle='#6d7d73';pctx.fillText((max*(1-i/4)).toFixed(2),7,y+4);}
+ for(let i=0;i<=4;i++){const y=top+(H-top-bottom)*i/4;pctx.strokeStyle=grid;pctx.beginPath();pctx.moveTo(left,y);pctx.lineTo(W-right,y);pctx.stroke();pctx.fillStyle=label;pctx.fillText((max*(1-i/4)).toFixed(2),7,y+4);}
  for(const [key,base,color] of [['energy',E,'#137c70'],['enstrophy',Z,'#a7663e']]){pctx.strokeStyle=color;pctx.lineWidth=2;pctx.beginPath();history.forEach((m,i)=>{const x=left+m.t/end*(W-left-right),y=H-bottom-m[key]/base/max*(H-top-bottom);i?pctx.lineTo(x,y):pctx.moveTo(x,y);});pctx.stroke();}
- pctx.fillStyle='#6d7d73';pctx.fillText('0',left,H-10);pctx.fillText(`t = ${end.toFixed(2)}`,W-100,H-10);
+ pctx.fillStyle=label;pctx.fillText('0',left,H-10);pctx.fillText(`t = ${end.toFixed(2)}`,W-100,H-10);
 }
 
 $('sim-model').addEventListener('change',()=>{model=$('sim-model').value;options={...options,...definitions[model].defaults};renderParameterForm();initialize();});
@@ -97,6 +99,7 @@ $('sim-save').addEventListener('click',()=>{
  const snapshot={schema:'ocean-pde-lab/v1',createdAt:new Date().toISOString(),options:{...appliedOptions},metrics:m,history,n:latest.n,field:latest.field,fieldValues:Array.from(latest.values),note:'Nondimensional periodic educational solver; field values are row-major, y increases upwards. Snapshot is an export, not a restart checkpoint.'};
  const json=JSON.stringify(snapshot),blob=new Blob([json],{type:'application/json'});if(exportUrl)URL.revokeObjectURL(exportUrl);exportUrl=URL.createObjectURL(blob);const a=$('sim-export-link');a.href=exportUrl;a.download=`ocean-${model}-t${m.t.toFixed(2)}.json`;$('sim-export-text').value=json;$('sim-export-panel').hidden=false;$('sim-export-panel').open=true;a.click();
 });
+new MutationObserver(drawChart).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)setRunning(false);});
 for(const b of document.querySelectorAll('[data-sim-preset]'))b.addEventListener('click',()=>{const which=b.dataset.simPreset;model=which==='rossby'?'qg':which==='adjustment'?'swe':'ns';$('sim-model').value=model;options={...options,...definitions[model].defaults};$('sim-initial').value=which==='rossby'?'wave':'vortices';renderParameterForm();initialize();$('simulator').scrollIntoView({behavior:'smooth'});});
 renderParameterForm();initialize();

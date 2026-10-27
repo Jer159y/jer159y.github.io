@@ -160,21 +160,4 @@ arrowTabs($('purpose-options'),'[data-purpose]',purposes.map(p=>p.id),setPurpose
 
 $('source-list').innerHTML=sources.map((s,i)=>`<div class="source-item"><span>0${i+1}</span><div><a href="${s.url}" target="_blank" rel="noopener noreferrer">${s.title} ↗</a><p>${s.note}</p></div></div>`).join('');
 
-function drawOcean(){
-  const group=$('streamlines');let paths='';
-  const field=(x,y)=>{
-    let u=.8,v=.05;
-    for(const [cx,cy,strength,spread] of [[250,205,230,170],[405,290,-120,110],[126,332,-80,95]]){
-      const dx=x-cx,dy=y-cy,r2=dx*dx+dy*dy;
-      const a=strength/(r2+1200)*Math.exp(-r2/(spread*spread));u-=dy*a;v+=dx*a;
-    }return [u,v];
-  };
-  let index=0;
-  for(let y=20;y<410;y+=30)for(let x=35;x<490;x+=49){
-    let px=x,py=y;let d=`M${x} ${y}`;const steps=22;
-    for(let i=0;i<steps;i++){const [u,v]=field(px,py),speed=Math.hypot(u,v);px+=u/speed*2.2;py+=v/speed*2.2;if(px<10||px>502||py<5||py>401)break;d+=`L${px.toFixed(1)} ${py.toFixed(1)}`;}
-    paths+=`<path d="${d}" stroke="${index++%5===0?'#c9ef86':'#66bba7'}" stroke-width="${index%4===0?'1.2':'.8'}" opacity="${.32+((x+y)%5)*.1}" fill="none" marker-end="url(#arrow)"/>`;
-  }
-  group.innerHTML=paths;
-}
-syncInputs();render({controls:true});drawOcean();
+syncInputs();render({controls:true});

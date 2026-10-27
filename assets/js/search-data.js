@@ -30,7 +30,29 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/blog/";
           },
-        },{id: "articles-project-1",
+        },{id: "post-tmux-사용-설명서와-필수-명령어",
+        
+          title: "tmux 사용 설명서와 필수 명령어",
+        
+        description: "원격 서버에서 장기 실험을 돌릴 때 필요한 tmux 세션·window·pane 사용법과 종료·복구 요령.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/tmux-guide/";
+          
+        },
+      },{id: "post-neovim-latex-실전-가이드",
+        
+          title: "Neovim × LaTeX 실전 가이드",
+        
+        description: "VimTeX, latexmk, Skim으로 논문과 한국어 Beamer를 편집·컴파일·미리보기하는 방법.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/neovim-latex-guide/";
+          
+        },
+      },{id: "articles-project-1",
           title: 'project 1',
           description: "with background image",
           section: "Articles",handler: () => {
@@ -51,7 +73,12 @@ ninja.data = [{
             },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
           title: 'A simple inline announcement with Markdown emoji! :sparkles: :smile:',
           description: "",
-          section: "News",},{
+          section: "News",},{id: "projects-dynamicsmetrics-jl",
+          title: 'DynamicsMetrics.jl',
+          description: "An early-stage Julia toolkit for evaluating predictions of dynamical systems.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/dynamicsmetrics/";
+            },},{
         id: 'social-email',
         title: 'email',
         section: 'Socials',

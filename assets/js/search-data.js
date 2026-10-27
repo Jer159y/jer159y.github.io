@@ -30,6 +30,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/blog/";
           },
+        },{id: "nav-lab",
+          title: "lab",
+          description: "Interactive experiments that run in the browser.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/lab/";
+          },
         },{id: "post-tmux-사용-설명서와-필수-명령어",
         
           title: "tmux 사용 설명서와 필수 명령어",

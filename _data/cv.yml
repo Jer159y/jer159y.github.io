@@ -44,6 +44,8 @@
       institution: Poster, KSIAM Annual Meeting
       department: Soobin Choi and Pilwon Kim
       year: 2026.05
+      description:
+        - <a href="/assets/pdf/ksiam2026-ensemble-rc-poster.pdf">Poster (PDF)</a> · <a href="/projects/ensemble-rc-spatiotemporal-chaos/">Project page</a>
 
 - title: Workshops and schools
   type: time_table

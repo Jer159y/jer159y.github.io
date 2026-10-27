@@ -78,6 +78,11 @@ ninja.data = [{
           description: "An early-stage Julia toolkit for evaluating predictions of dynamical systems.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/dynamicsmetrics/";
+            },},{id: "projects-ensemble-reservoir-computing-for-spatiotemporal-chaos",
+          title: 'Ensemble reservoir computing for spatiotemporal chaos',
+          description: "Two ensemble strategies for long-term prediction of the Kuramoto–Sivashinsky equation. Poster, KSIAM Annual Meeting 2026.05.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ensemble-rc-spatiotemporal-chaos/";
             },},{
         id: 'social-email',
         title: 'email',

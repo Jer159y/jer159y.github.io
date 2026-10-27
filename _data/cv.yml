@@ -3,7 +3,11 @@
   contents:
     - title: Integrated M.S.–Ph.D. student, Mathematical Sciences
       institution: Ulsan National Institute of Science and Technology (UNIST)
+      department: "Advisor: Prof. Pilwon Kim"
       year: Present
+    - title: B.S., Mathematical Sciences
+      institution: Ulsan National Institute of Science and Technology (UNIST)
+      year: 2024.02
 
 - title: Research focus
   type: list
@@ -28,6 +32,67 @@
       description:
         - Evaluation toolkit for dynamical-system prediction covering pointwise error, forecast horizon, temporal and spectral structure, distributional distance, and ensemble uncertainty.
         - Includes input validation, reproducible TOML reports, examples, and unit tests.
+
+- title: Presentations
+  type: time_table
+  contents:
+    - title: Resynchronization Keeps Reservoir Ensembles Healthy in Long-Term Prediction
+      institution: Poster (upcoming), KSIAM Annual Meeting
+      department: Soobin Choi and Pilwon Kim
+      year: 2026.11
+    - title: Long-term Prediction of Spatiotemporal Chaotic Systems Using Ensemble Reservoir Computing
+      institution: Poster, KSIAM Annual Meeting
+      department: Soobin Choi and Pilwon Kim
+      year: 2026.05
+
+- title: Workshops and schools
+  type: time_table
+  contents:
+    - title: Industrial Mathematics Problem-Solving Workshop
+      institution: National Institute for Mathematical Sciences (NIMS)
+      year: 2025.12
+      description:
+        - Team project on automatic detection of spot contamination in images of white cotton T-shirts, framed as a defect and anomaly detection problem.
+    - title: NeuroAI course
+      institution: Neuromatch Academy
+      year: 2025.07
+
+- title: Teaching
+  type: time_table
+  contents:
+    - title: Course development assistant, Mathematical Thinking for AI
+      institution: UNIST
+      year: 2026
+      description:
+        - Designed a 16-week curriculum that builds from vectors, matrices, and linear regression to gradient descent, backpropagation, softmax, and cross-entropy.
+    - title: Teaching assistant
+      institution: Department of Mathematical Sciences, UNIST
+      year: 2024–2026
+      description:
+        - Calculus 1 (2024 Spring), Calculus 2 (2024 Fall, 2026 Fall)
+        - Complex Analysis (2025 Spring), Differential Equations (2025 Fall), Statistics (2026 Spring)
+    - title: Tutor and buddy, MLC
+      institution: UNIST
+      year: 2025–2026
+
+- title: Outreach and service
+  type: time_table
+  contents:
+    - title: Graduate student session, Lunch Convergence department seminar
+      institution: UNIST Department of Mathematical Sciences
+      year: 2026.10
+    - title: Lab TA, Future Science Talent intensive program
+      institution: UNIST
+      year: 2026.08
+    - title: Assistant instructor, "The Power of Mathematics Behind AI" lecture
+      institution: Ulsan Mathematics Culture Center (January and July)
+      year: 2026
+    - title: "Career mentoring talk: What do math graduate students do?"
+      institution: Ulsan Science High School
+      year: 2026.05
+    - title: Staff, KSIAM Annual Meeting
+      institution: Korean Society for Industrial and Applied Mathematics
+      year: 2025.11
 
 - title: Skills
   type: map

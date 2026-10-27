@@ -11,3 +11,4 @@ _sass/font-awesome/*.scss
 _sass/tabler-icons/*.scss
 _scripts/*
 assets/js/ocean-pde/**
+assets/js/climate-lab/**

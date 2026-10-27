@@ -11,3 +11,5 @@ assets/libs/
 node_modules/
 vendor
 .idea
+# Private Notion export (source material only, never publish)
+main/

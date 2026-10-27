@@ -5,15 +5,51 @@
       institution: Ulsan National Institute of Science and Technology (UNIST)
       year: Present
 
-- title: Research interests
+- title: Research focus
   type: list
   contents:
-    - Nonlinear dynamics and mathematical modeling
-    - Reservoir computing and signal processing
-    - Spiking neural networks and hardware based computing
+    - Computational dynamics under uncertainty and reliable long-horizon autonomous prediction
+    - Reservoir computing ensembles, member failure and recovery diagnostics
+    - Evaluation of nonlinear dynamical systems beyond pointwise error (variability, scales, distributions)
+    - Ocean and deep-ocean observation with sparse, noisy, and irregular measurements
+
+- title: Research experience
+  type: time_table
+  contents:
+    - title: Ensemble reservoir computing for long-horizon prediction
+      institution: Graduate research project
+      year: Ongoing
+      description:
+        - Designing parallel ensemble rollouts and periodic resynchronisation of members for nonlinear dynamical systems, without retraining reservoir weights.
+        - Developing long-horizon diagnostics such as ensemble health and effective-support proxies for systems including Duffing, Kuramoto–Sivashinsky, and Lorenz-96.
+    - title: DynamicsMetrics.jl
+      institution: Open-source Julia research software
+      year: Early release
+      description:
+        - Evaluation toolkit for dynamical-system prediction covering pointwise error, forecast horizon, temporal and spectral structure, distributional distance, and ensemble uncertainty.
+        - Includes input validation, reproducible TOML reports, examples, and unit tests.
+
+- title: Skills
+  type: map
+  contents:
+    - name: Languages
+      value: Julia, Python, LaTeX
+    - name: Methods
+      value: Numerical simulation, nonlinear dynamics, reservoir computing, probabilistic forecast evaluation
+    - name: Tools
+      value: Git and GitHub, Neovim, tmux, remote research workflows over SSH
+
+- title: Collaboration interests
+  type: list
+  contents:
+    - Failure-aware modelling and intermittent observations
+    - Data assimilation benchmarks for chaotic systems
+    - Resource-aware autonomous sampling in marine and robotic systems
 
 - title: Contact
   type: map
   contents:
     - name: Email
       value: <a href="mailto:looacker09@unist.ac.kr">looacker09@unist.ac.kr</a>
+    - name: GitHub
+      value: <a href="https://github.com/Jer159y">github.com/Jer159y</a>

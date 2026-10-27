@@ -9,11 +9,11 @@ last_name: choi
 contact_note: >
   Feel free to reach out: looacker09@unist.ac.kr
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  Research, projects, and notes on nonlinear dynamics and computing.
+  Research, projects, and notes on nonlinear dynamics, reservoir computing, and prediction under uncertainty.
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
-keywords: mathematics, reservoir-computing, nonlinear-dynamics # add your own keywords or leave empty
+keywords: applied-mathematics, reservoir-computing, nonlinear-dynamics, ocean-observation # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: ⚛️ # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
@@ -187,6 +187,7 @@ exclude:
   - README.md
   - readme_preview/
   - vendor
+  - main/
 keep_files:
   - CNAME
   - .nojekyll
@@ -251,7 +252,7 @@ jekyll-archives:
   books:
     enabled: [year, tags, categories] # enables year, tag and category archives (remove if you need to disable one of them).
 
-display_tags: [] # add tags here when published notes use them
+display_tags: [tools, latex]
 display_categories: [] # add categories here when published notes use them
 
 # -----------------------------------------------------------------------------
@@ -620,9 +621,10 @@ third_party_libraries:
 # Get external JSON data
 # -----------------------------------------------------------------------------
 
-jekyll_get_json:
-  - data: resume
-    json: assets/json/resume.json # it can also be an url
+# disabled so the CV page uses _data/cv.yml instead of the sample resume.json
+jekyll_get_json: []
+#  - data: resume
+#    json: assets/json/resume.json # it can also be an url
 
 jsonresume:
   - basics

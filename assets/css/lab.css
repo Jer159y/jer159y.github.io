@@ -1,24 +1,24 @@
-/* Ocean PDE Lab: layout-only styles on top of the site theme. */
+/* Lab pages: layout-only styles on top of the site theme. */
 
-.ocean-lab {
+.lab-page {
   --ol-border: 1px solid var(--global-divider-color);
 }
 
-.ocean-lab h2 {
+.lab-page h2 {
   margin-top: 0;
 }
 
-.ocean-lab h3 {
+.lab-page h3 {
   font-size: 1.1rem;
 }
 
-.ocean-lab h4 {
+.lab-page h4 {
   font-size: 1rem;
 }
 
-.ocean-lab select,
-.ocean-lab input[type="number"],
-.ocean-lab textarea {
+.lab-page select,
+.lab-page input[type="number"],
+.lab-page textarea {
   background: var(--global-bg-color);
   border: var(--ol-border);
   border-radius: 0.3rem;
@@ -26,17 +26,17 @@
   padding: 0.25rem 0.4rem;
 }
 
-.ocean-lab label {
+.lab-page label {
   display: block;
 }
 
-.ocean-lab label > select {
+.lab-page label > select {
   display: block;
   margin-top: 0.2rem;
   width: 100%;
 }
 
-.ocean-lab button {
+.lab-page button {
   background: none;
   border: var(--ol-border);
   border-radius: 0.3rem;
@@ -45,68 +45,68 @@
   padding: 0.3rem 0.7rem;
 }
 
-.ocean-lab button:hover,
-.ocean-lab button[aria-pressed="true"],
-.ocean-lab button[aria-checked="true"],
-.ocean-lab button[aria-selected="true"] {
+.lab-page button:hover,
+.lab-page button[aria-pressed="true"],
+.lab-page button[aria-checked="true"],
+.lab-page button[aria-selected="true"] {
   border-color: var(--global-theme-color);
   color: var(--global-theme-color);
 }
 
-.ocean-lab .ol-btn-primary,
-.ocean-lab .ol-btn-primary:hover {
+.lab-page .ol-btn-primary,
+.lab-page .ol-btn-primary:hover {
   background: var(--global-theme-color);
   border-color: var(--global-theme-color);
   color: var(--global-hover-text-color);
 }
 
-.ocean-lab .text-btn,
-.ocean-lab .small-link {
+.lab-page .text-btn,
+.lab-page .small-link {
   border: 0;
   color: var(--global-theme-color);
   padding: 0;
 }
 
-.ocean-lab .ol-card {
+.lab-page .ol-card {
   border: var(--ol-border);
   border-radius: 0.5rem;
   padding: 1rem;
 }
 
-.ocean-lab .ol-section {
+.lab-page .ol-section {
   border-top: var(--ol-border);
   margin-top: 2.5rem;
   padding-top: 2rem;
 }
 
-.ocean-lab .ol-head > p,
-.ocean-lab .sim-help,
-.ocean-lab .field-help,
-.ocean-lab .small-muted,
-.ocean-lab .ol-fine,
-.ocean-lab small {
+.lab-page .ol-head > p,
+.lab-page .sim-help,
+.lab-page .field-help,
+.lab-page .small-muted,
+.lab-page .ol-fine,
+.lab-page small {
   color: var(--global-text-color-light);
 }
 
-.ocean-lab .ol-fine,
-.ocean-lab .sim-help,
-.ocean-lab .field-help {
+.lab-page .ol-fine,
+.lab-page .sim-help,
+.lab-page .field-help {
   font-size: 0.85rem;
 }
 
-.ocean-lab small {
+.lab-page small {
   display: block;
 }
 
-.ocean-lab .ol-toc {
+.lab-page .ol-toc {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem 1.2rem;
 }
 
-.ocean-lab .ol-equation,
-.ocean-lab .equation-box,
-.ocean-lab .table-equation {
+.lab-page .ol-equation,
+.lab-page .equation-box,
+.lab-page .table-equation {
   font-family: var(--bs-font-monospace, monospace);
   font-size: 0.9rem;
   overflow-x: auto;
@@ -114,7 +114,7 @@
 
 /* Simulator */
 
-.ocean-lab .sim-presets {
+.lab-page .sim-presets {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
@@ -122,52 +122,52 @@
   margin-bottom: 1rem;
 }
 
-.ocean-lab .sim-layout {
+.lab-page .sim-layout {
   display: grid;
   gap: 1.25rem;
   grid-template-columns: 17rem minmax(0, 1fr);
 }
 
-.ocean-lab .sim-controls > * + * {
+.lab-page .sim-controls > * + * {
   margin-top: 0.75rem;
 }
 
-.ocean-lab .sim-select-pair {
+.lab-page .sim-select-pair {
   display: grid;
   gap: 0.5rem;
   grid-template-columns: 1fr 1fr;
 }
 
-.ocean-lab .sim-range-label span {
+.lab-page .sim-range-label span {
   display: flex;
   justify-content: space-between;
 }
 
-.ocean-lab .sim-range-label input {
+.lab-page .sim-range-label input {
   width: 100%;
 }
 
-.ocean-lab .sim-controls .ol-btn {
+.lab-page .sim-controls .ol-btn {
   width: 100%;
 }
 
-.ocean-lab .sim-pending {
+.lab-page .sim-pending {
   color: var(--global-highlight-color);
   font-size: 0.85rem;
 }
 
-.ocean-lab .sim-toolbar,
-.ocean-lab .sim-field-top,
-.ocean-lab .sim-view-controls,
-.ocean-lab .sim-chart-head,
-.ocean-lab .control-heading,
-.ocean-lab .scenario-bar,
-.ocean-lab .panel-heading,
-.ocean-lab .compare-toolbar,
-.ocean-lab .rec-header,
-.ocean-lab .rec-footer,
-.ocean-lab .alt-header,
-.ocean-lab .rec-topline {
+.lab-page .sim-toolbar,
+.lab-page .sim-field-top,
+.lab-page .sim-view-controls,
+.lab-page .sim-chart-head,
+.lab-page .control-heading,
+.lab-page .scenario-bar,
+.lab-page .panel-heading,
+.lab-page .compare-toolbar,
+.lab-page .rec-header,
+.lab-page .rec-footer,
+.lab-page .alt-header,
+.lab-page .rec-topline {
   align-items: flex-end;
   display: flex;
   flex-wrap: wrap;
@@ -175,35 +175,35 @@
   justify-content: space-between;
 }
 
-.ocean-lab .sim-toolbar,
-.ocean-lab .sim-field-top {
+.lab-page .sim-toolbar,
+.lab-page .sim-field-top {
   margin-bottom: 0.6rem;
 }
 
-.ocean-lab .sim-toolbar label > select,
-.ocean-lab .sim-field-top label > select,
-.ocean-lab .sim-view-controls label > select {
+.lab-page .sim-toolbar label > select,
+.lab-page .sim-field-top label > select,
+.lab-page .sim-view-controls label > select {
   display: inline-block;
   margin: 0 0 0 0.4rem;
   width: auto;
 }
 
-.ocean-lab .sim-canvas-wrap {
+.lab-page .sim-canvas-wrap {
   position: relative;
 }
 
-.ocean-lab canvas {
+.lab-page canvas {
   display: block;
   height: auto;
   width: 100%;
 }
 
-.ocean-lab #sim-field {
+.lab-page #sim-field {
   aspect-ratio: 1;
   border: var(--ol-border);
 }
 
-.ocean-lab .sim-periodic {
+.lab-page .sim-periodic {
   bottom: 0.4rem;
   color: #333;
   font-size: 0.7rem;
@@ -211,7 +211,7 @@
   right: 0.5rem;
 }
 
-.ocean-lab .sim-color-row {
+.lab-page .sim-color-row {
   align-items: center;
   display: flex;
   font-size: 0.8rem;
@@ -219,81 +219,81 @@
   margin: 0.5rem 0;
 }
 
-.ocean-lab #sim-colorbar {
+.lab-page #sim-colorbar {
   border-radius: 0.2rem;
   flex: 1;
   height: 0.6rem;
 }
 
-.ocean-lab .ol-check {
+.lab-page .ol-check {
   display: inline-block;
 }
 
-.ocean-lab #sim-status {
+.lab-page #sim-status {
   font-size: 0.85rem;
   margin: 0.6rem 0;
 }
 
-.ocean-lab #sim-status.sim-error {
+.lab-page #sim-status.sim-error {
   color: var(--global-highlight-color);
 }
 
-.ocean-lab .sim-metrics,
-.ocean-lab .diagnostic-grid {
+.lab-page .sim-metrics,
+.lab-page .diagnostic-grid {
   display: grid;
   gap: 0.6rem;
   grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
   margin-bottom: 1rem;
 }
 
-.ocean-lab .sim-metrics > div,
-.ocean-lab .diagnostic {
+.lab-page .sim-metrics > div,
+.lab-page .diagnostic {
   border: var(--ol-border);
   border-radius: 0.4rem;
   padding: 0.5rem 0.7rem;
 }
 
-.ocean-lab .sim-metrics small,
-.ocean-lab .diagnostic small {
+.lab-page .sim-metrics small,
+.lab-page .diagnostic small {
   font-size: 0.7rem;
 }
 
-.ocean-lab .diagnostic p {
+.lab-page .diagnostic p {
   font-size: 0.8rem;
   margin: 0;
 }
 
-.ocean-lab .diagnostic b span {
+.lab-page .diagnostic b span {
   font-size: 0.75rem;
   margin-left: 0.15rem;
 }
 
-.ocean-lab .sim-chart-head h3 {
+.lab-page .sim-chart-head h3 {
   margin: 0;
 }
 
-.ocean-lab .sim-chart-head i {
+.lab-page .sim-chart-head i {
   display: inline-block;
   height: 2px;
   margin: 0 0.25rem 0.25rem 0.6rem;
   width: 1rem;
 }
 
-.ocean-lab .sim-chart-head i.e {
+.lab-page .sim-chart-head i.e {
   background: #137c70;
 }
 
-.ocean-lab .sim-chart-head i.z {
+.lab-page .sim-chart-head i.z {
   background: #a7663e;
 }
 
-.ocean-lab #sim-export-text {
+.lab-page #sim-export-text {
   margin-top: 0.5rem;
   width: 100%;
 }
 
-.ocean-lab .sim-notes,
-.ocean-lab .method-grid {
+.lab-page .sim-notes,
+.lab-page .method-grid {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
@@ -302,32 +302,32 @@
 
 /* Explorer */
 
-.ocean-lab .workspace {
+.lab-page .workspace {
   display: grid;
   gap: 1.25rem;
   grid-template-columns: 17rem minmax(0, 1fr);
 }
 
-.ocean-lab fieldset {
+.lab-page fieldset {
   margin-top: 1rem;
 }
 
-.ocean-lab legend {
+.lab-page legend {
   font-size: 1rem;
   font-weight: 600;
 }
 
-.ocean-lab .step {
+.lab-page .step {
   color: var(--global-theme-color);
   margin-right: 0.2rem;
 }
 
-.ocean-lab .purpose-options {
+.lab-page .purpose-options {
   display: grid;
   gap: 0.4rem;
 }
 
-.ocean-lab .purpose-option {
+.lab-page .purpose-option {
   align-items: flex-start;
   display: flex;
   gap: 0.5rem;
@@ -335,25 +335,25 @@
   width: 100%;
 }
 
-.ocean-lab .radio-dot {
+.lab-page .radio-dot {
   display: none;
 }
 
-.ocean-lab .physics-option {
+.lab-page .physics-option {
   align-items: flex-start;
   display: flex;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
-.ocean-lab .physics-option input {
+.lab-page .physics-option input {
   margin-top: 0.3rem;
 }
 
-.ocean-lab .locked,
-.ocean-lab .status-pill,
-.ocean-lab .tag,
-.ocean-lab .table-status {
+.lab-page .locked,
+.lab-page .status-pill,
+.lab-page .tag,
+.lab-page .table-status {
   border: var(--ol-border);
   border-radius: 1rem;
   font-size: 0.75rem;
@@ -361,174 +361,174 @@
   white-space: nowrap;
 }
 
-.ocean-lab .tag.emphasis,
-.ocean-lab .status-pill {
+.lab-page .tag.emphasis,
+.lab-page .status-pill {
   border-color: var(--global-theme-color);
   color: var(--global-theme-color);
 }
 
-.ocean-lab .table-status.excluded {
+.lab-page .table-status.excluded {
   color: var(--global-text-color-light);
 }
 
-.ocean-lab .compact-field select {
+.lab-page .compact-field select {
   margin-bottom: 0.6rem;
   width: 100%;
 }
 
-.ocean-lab .results-column > * + * {
+.lab-page .results-column > * + * {
   margin-top: 1rem;
 }
 
-.ocean-lab .scenario-bar h3 {
+.lab-page .scenario-bar h3 {
   margin: 0;
 }
 
-.ocean-lab .recommendation,
-.ocean-lab .empty-result,
-.ocean-lab .alternative {
+.lab-page .recommendation,
+.lab-page .empty-result,
+.lab-page .alternative {
   border: var(--ol-border);
   border-radius: 0.5rem;
   padding: 1rem;
 }
 
-.ocean-lab .recommendation {
+.lab-page .recommendation {
   border-color: var(--global-theme-color);
 }
 
-.ocean-lab .rec-topline {
+.lab-page .rec-topline {
   color: var(--global-text-color-light);
   font-size: 0.8rem;
   margin-bottom: 0.5rem;
 }
 
-.ocean-lab .rec-header h3 {
+.lab-page .rec-header h3 {
   margin: 0;
 }
 
-.ocean-lab .model-kicker {
+.lab-page .model-kicker {
   color: var(--global-text-color-light);
   font-size: 0.75rem;
 }
 
-.ocean-lab .model-icon svg {
+.lab-page .model-icon svg {
   height: 3rem;
   width: 3rem;
 }
 
-.ocean-lab .rec-facts {
+.lab-page .rec-facts {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
   margin-bottom: 0.6rem;
 }
 
-.ocean-lab .rec-caution {
+.lab-page .rec-caution {
   font-size: 0.85rem;
 }
 
-.ocean-lab .alternatives {
+.lab-page .alternatives {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
 }
 
-.ocean-lab .alternative p {
+.lab-page .alternative p {
   font-size: 0.9rem;
 }
 
-.ocean-lab .rejected-panel summary,
-.ocean-lab .glossary summary,
-.ocean-lab .sim-export-panel summary {
+.lab-page .rejected-panel summary,
+.lab-page .glossary summary,
+.lab-page .sim-export-panel summary {
   cursor: pointer;
 }
 
-.ocean-lab .summary-arrow {
+.lab-page .summary-arrow {
   display: none;
 }
 
-.ocean-lab .rejected-item {
+.lab-page .rejected-item {
   border-top: var(--ol-border);
   font-size: 0.9rem;
   padding: 0.5rem 0;
 }
 
-.ocean-lab .rejected-item button {
+.lab-page .rejected-item button {
   border: 0;
   color: var(--global-theme-color);
   margin-left: 0.5rem;
   padding: 0;
 }
 
-.ocean-lab .rejected-item ul {
+.lab-page .rejected-item ul {
   list-style: none;
   margin: 0.2rem 0 0;
   padding: 0;
 }
 
-.ocean-lab .scale-inputs {
+.lab-page .scale-inputs {
   display: grid;
   gap: 0.6rem;
   grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
   margin: 0.8rem 0;
 }
 
-.ocean-lab .scale-inputs input {
+.lab-page .scale-inputs input {
   width: 6rem;
 }
 
-.ocean-lab .regime-note {
+.lab-page .regime-note {
   font-size: 0.9rem;
 }
 
 /* Comparison */
 
-.ocean-lab .compare-options,
-.ocean-lab .model-tabs {
+.lab-page .compare-options,
+.lab-page .model-tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
 }
 
-.ocean-lab .compare-message {
+.lab-page .compare-message {
   font-size: 0.85rem;
   margin: 0.5rem 0;
 }
 
-.ocean-lab .comparison-scroll {
+.lab-page .comparison-scroll {
   overflow-x: auto;
 }
 
-.ocean-lab #comparison-table {
+.lab-page #comparison-table {
   border-collapse: collapse;
   font-size: 0.88rem;
   width: 100%;
 }
 
-.ocean-lab #comparison-table th,
-.ocean-lab #comparison-table td {
+.lab-page #comparison-table th,
+.lab-page #comparison-table td {
   border-bottom: var(--ol-border);
   padding: 0.6rem;
   text-align: left;
   vertical-align: top;
 }
 
-.ocean-lab #comparison-table thead h3 {
+.lab-page #comparison-table thead h3 {
   font-size: 1rem;
   margin: 0.2rem 0;
 }
 
-.ocean-lab #comparison-table tbody th {
+.lab-page #comparison-table tbody th {
   width: 9rem;
 }
 
-.ocean-lab .table-korean {
+.lab-page .table-korean {
   color: var(--global-text-color-light);
   font-size: 0.8rem;
   margin-bottom: 0.3rem;
 }
 
-.ocean-lab .model-refs {
+.lab-page .model-refs {
   display: flex;
   flex-wrap: wrap;
   font-size: 0.85rem;
@@ -537,54 +537,54 @@
 
 /* Deep dive */
 
-.ocean-lab .model-tabs {
+.lab-page .model-tabs {
   margin-bottom: 1rem;
 }
 
-.ocean-lab .model-detail {
+.lab-page .model-detail {
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
 }
 
-.ocean-lab .equation-side h3 {
+.lab-page .equation-side h3 {
   margin-top: 0;
 }
 
-.ocean-lab .tagline,
-.ocean-lab .equation-note {
+.lab-page .tagline,
+.lab-page .equation-note {
   color: var(--global-text-color-light);
   font-size: 0.9rem;
 }
 
-.ocean-lab .equation-line {
+.lab-page .equation-line {
   margin-bottom: 0.4rem;
 }
 
-.ocean-lab .layer-visual svg {
+.lab-page .layer-visual svg {
   width: 100%;
 }
 
-.ocean-lab .detail-info p {
+.lab-page .detail-info p {
   font-size: 0.9rem;
 }
 
-.ocean-lab .compute-panel {
+.lab-page .compute-panel {
   margin-top: 1rem;
 }
 
-.ocean-lab .compute-heading h3 {
+.lab-page .compute-heading h3 {
   margin-top: 0;
 }
 
-.ocean-lab .compute-controls {
+.lab-page .compute-controls {
   display: grid;
   gap: 0.6rem;
   grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
   margin-bottom: 1rem;
 }
 
-.ocean-lab .storage-row {
+.lab-page .storage-row {
   align-items: center;
   display: grid;
   font-size: 0.85rem;
@@ -593,66 +593,66 @@
   margin-bottom: 0.35rem;
 }
 
-.ocean-lab .storage-row.highlight {
+.lab-page .storage-row.highlight {
   color: var(--global-theme-color);
   font-weight: 600;
 }
 
-.ocean-lab .storage-track {
+.lab-page .storage-track {
   background: var(--global-divider-color);
   border-radius: 0.2rem;
   height: 0.5rem;
 }
 
-.ocean-lab .storage-fill {
+.lab-page .storage-fill {
   background: var(--global-theme-color);
   border-radius: 0.2rem;
   height: 100%;
   min-width: 2px;
 }
 
-.ocean-lab .storage-value {
+.lab-page .storage-value {
   text-align: right;
 }
 
 /* Sources */
 
-.ocean-lab .method-no {
+.lab-page .method-no {
   color: var(--global-theme-color);
   font-weight: 700;
 }
 
-.ocean-lab .method-grid p {
+.lab-page .method-grid p {
   font-size: 0.9rem;
 }
 
-.ocean-lab .source-item {
+.lab-page .source-item {
   border-top: var(--ol-border);
   display: flex;
   gap: 1rem;
   padding: 0.6rem 0;
 }
 
-.ocean-lab .source-item > span {
+.lab-page .source-item > span {
   color: var(--global-text-color-light);
 }
 
-.ocean-lab .source-item p {
+.lab-page .source-item p {
   color: var(--global-text-color-light);
   font-size: 0.85rem;
   margin: 0.2rem 0 0;
 }
 
-.ocean-lab .glossary dl div {
+.lab-page .glossary dl div {
   display: flex;
   gap: 1rem;
 }
 
-.ocean-lab .glossary dt {
+.lab-page .glossary dt {
   min-width: 5rem;
 }
 
-.ocean-lab .ol-toast {
+.lab-page .ol-toast {
   background: var(--global-text-color);
   border-radius: 0.4rem;
   bottom: 1.5rem;
@@ -668,13 +668,157 @@
   z-index: 1000;
 }
 
-.ocean-lab .ol-toast.show {
+.lab-page .ol-toast.show {
   opacity: 1;
 }
 
 @media (max-width: 767px) {
-  .ocean-lab .sim-layout,
-  .ocean-lab .workspace {
+  .lab-page .sim-layout,
+  .lab-page .workspace {
     grid-template-columns: 1fr;
   }
+}
+
+/* Tables, legends and charts. */
+
+.lab-page .cl-table {
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  min-width: 760px;
+  width: 100%;
+}
+
+.lab-page .cl-table th,
+.lab-page .cl-table td {
+  border-bottom: var(--ol-border);
+  padding: 0.5rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.lab-page .cl-table tbody th {
+  min-width: 8rem;
+}
+
+.lab-page .cl-table small {
+  margin-top: 0.2rem;
+}
+
+.lab-page .cl-dim {
+  opacity: 0.35;
+}
+
+.lab-page .cl-tail {
+  color: var(--global-text-color-light);
+}
+
+.lab-page .cl-subhead {
+  margin-top: 1.75rem;
+}
+
+.lab-page .cl-task-view {
+  margin-top: 1rem;
+}
+
+.lab-page .cl-tabs small {
+  color: var(--global-text-color-light);
+  display: inline;
+  font-size: 0.75rem;
+}
+
+.lab-page #cl-main,
+.lab-page #cl-state {
+  border: var(--ol-border);
+}
+
+.lab-page #cl-state {
+  border-top: 0;
+}
+
+.lab-page .cl-charts > div {
+  margin-top: 1.5rem;
+}
+
+.lab-page .cl-charts h3 {
+  margin-bottom: 0.3rem;
+}
+
+.lab-page .cl-legend {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  gap: 0.2rem 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.lab-page .cl-legend i {
+  display: inline-block;
+  height: 2px;
+  margin: 0 0.35rem 0.25rem 0;
+  vertical-align: middle;
+  width: 1rem;
+}
+
+.lab-page .cl-math {
+  overflow-x: auto;
+}
+
+.lab-page .cl-diag {
+  border-top: var(--ol-border);
+  padding: 0.75rem 0;
+}
+
+.lab-page .cl-diag h4 {
+  margin-bottom: 0;
+}
+
+.lab-page .cl-diag p {
+  font-size: 0.9rem;
+}
+
+.lab-page .cl-physics h4 {
+  font-size: 0.95rem;
+}
+
+.lab-page .cl-physics p {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.lab-page .cl-refs {
+  font-size: 0.9rem;
+}
+
+/* View tabs, real-data panels */
+
+.lab-page .lab-views {
+  margin: 0.8rem 0 0.4rem;
+}
+
+.lab-page #lab-view,
+.lab-page .lab-real canvas {
+  border: var(--ol-border);
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.lab-page .lab-real {
+  margin-top: 1rem;
+}
+
+.lab-page .lab-real-extra {
+  margin: 0.6rem 0;
+}
+
+.lab-page .lab-real-extra label > select {
+  display: inline-block;
+  margin-left: 0.4rem;
+  width: auto;
+}
+
+.lab-page .lab-sim-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
 }

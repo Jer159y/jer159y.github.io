@@ -1,305 +1,5 @@
-// Dependency-free integrators for the climate-systems ladder.
-// Every system exposes: step() -> dt, budget() -> {quantity, terms}, diagnostics(), view().
-export const TAU = 2 * Math.PI;
-
-// Seeded PRNG (mulberry32) + Box–Muller, so runs are reproducible.
-export function rng(seed = 1) {
-  let a = seed >>> 0;
-  const uniform = () => {
-    a = (a + 0x6d2b79f5) >>> 0;
-    let t = a;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-  let spare = null;
-  const normal = () => {
-    if (spare !== null) { const s = spare; spare = null; return s; }
-    let u = 0; while (u === 0) u = uniform();
-    const v = uniform(), r = Math.sqrt(-2 * Math.log(u));
-    spare = r * Math.sin(TAU * v);
-    return r * Math.cos(TAU * v);
-  };
-  return { uniform, normal };
-}
-
-// In-place radix-2 complex FFT.
-export function fft(re, im, inverse = false) {
-  const n = re.length;
-  for (let i = 1, j = 0; i < n; i++) {
-    let bit = n >> 1;
-    for (; j & bit; bit >>= 1) j ^= bit;
-    j ^= bit;
-    if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; }
-  }
-  for (let len = 2; len <= n; len <<= 1) {
-    const ang = (inverse ? 2 : -2) * Math.PI / len, wr = Math.cos(ang), wi = Math.sin(ang);
-    for (let i = 0; i < n; i += len) {
-      let ur = 1, ui = 0;
-      for (let j = 0; j < len / 2; j++) {
-        const k = i + j, l = k + len / 2;
-        const vr = re[l] * ur - im[l] * ui, vi = re[l] * ui + im[l] * ur;
-        re[l] = re[k] - vr; im[l] = im[k] - vi; re[k] += vr; im[k] += vi;
-        const t = ur * wr - ui * wi; ui = ur * wi + ui * wr; ur = t;
-      }
-    }
-  }
-  if (inverse) for (let i = 0; i < n; i++) { re[i] /= n; im[i] /= n; }
-}
-
-export function fft2(re, im, n, inverse = false) {
-  const a = new Float64Array(n), b = new Float64Array(n);
-  for (let y = 0; y < n; y++) {
-    const o = y * n;
-    for (let x = 0; x < n; x++) { a[x] = re[o + x]; b[x] = im[o + x]; }
-    fft(a, b, inverse);
-    for (let x = 0; x < n; x++) { re[o + x] = a[x]; im[o + x] = b[x]; }
-  }
-  for (let x = 0; x < n; x++) {
-    for (let y = 0; y < n; y++) { a[y] = re[y * n + x]; b[y] = im[y * n + x]; }
-    fft(a, b, inverse);
-    for (let y = 0; y < n; y++) { re[y * n + x] = a[y]; im[y * n + x] = b[y]; }
-  }
-}
-
-const wavenumber = (i, n) => (i <= n / 2 ? i : i - n);
-
-// Spectra of real fields must satisfy v(−k) = conj v(k). Round-off breaks this slightly, and the
-// anti-Hermitian part is invisible to the (real) nonlinear term, so linear instabilities would
-// amplify it without bound. Projecting back after every step keeps the field real.
-export function hermitian(re, im, n) {
-  for (let i = 0; i <= n / 2; i++) {
-    const j = (n - i) % n, r = (re[i] + re[j]) / 2, m = (im[i] - im[j]) / 2;
-    re[i] = re[j] = r; im[i] = m; im[j] = -m;
-  }
-}
-export function hermitian2(re, im, n) {
-  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
-    const i = y * n + x, j = ((n - y) % n) * n + (n - x) % n;
-    if (j < i) continue;
-    const r = (re[i] + re[j]) / 2, m = (im[i] - im[j]) / 2;
-    re[i] = re[j] = r; im[i] = m; im[j] = -m;
-  }
-}
-
-// Classic RK4 for small ODE systems y' = f(t, y).
-function rk4(f, t, y, dt) {
-  const k1 = f(t, y);
-  const k2 = f(t + dt / 2, y.map((v, i) => v + dt / 2 * k1[i]));
-  const k3 = f(t + dt / 2, y.map((v, i) => v + dt / 2 * k2[i]));
-  const k4 = f(t + dt, y.map((v, i) => v + dt * k3[i]));
-  return y.map((v, i) => v + dt / 6 * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]));
-}
-
-/* ------------------------------------------------------------------ */
-/* Base class: ODE systems with optional additive noise and twin runs. */
-/* ------------------------------------------------------------------ */
-class OdeSystem {
-  constructor(p, defaults) {
-    this.p = { ...defaults, ...p };
-    this.t = 0; this.steps = 0;
-    this.random = rng(this.p.seed ?? 1);
-    this.noiseWork = 0; // accumulated change of the budget quantity due to noise
-  }
-  // Stochastic split: RK4 for the drift, then Euler–Maruyama additive noise.
-  step() {
-    const dt = this.dt;
-    this.y = rk4((t, y) => this.f(t, y), this.t, this.y, dt);
-    if (this.noise) {
-      const before = this.budgetQuantity(this.y);
-      this.y = this.noise(this.y, dt);
-      this.noiseWork += this.budgetQuantity(this.y) - before;
-    }
-    if (this.twin) this.stepTwins(dt);
-    this.t += dt; this.steps++;
-    if (!this.y.every(Number.isFinite)) throw Error('수치해가 발산했습니다. 파라미터나 시간 간격을 줄여 보세요.');
-    return dt;
-  }
-  // Two perturbed copies: one free (error growth), one renormalised (Benettin estimate of λ₁).
-  initTwins(delta = 1e-6) {
-    const dir = this.y.map(() => this.random.normal()), norm = Math.hypot(...dir);
-    this.delta0 = delta;
-    this.twinFree = this.y.map((v, i) => v + delta * dir[i] / norm);
-    this.twinLyap = this.y.map((v, i) => v + delta * dir[i] / norm);
-    this.lyapSum = 0; this.lyapTime = 0;
-  }
-  stepTwins(dt) {
-    const f = (t, y) => this.f(t, y);
-    const yNext = this.y; // already advanced
-    this.twinFree = rk4(f, this.t, this.twinFree, dt);
-    this.twinLyap = rk4(f, this.t, this.twinLyap, dt);
-    const d = Math.hypot(...this.twinLyap.map((v, i) => v - yNext[i]));
-    if (d > 0) {
-      this.lyapSum += Math.log(d / this.delta0); this.lyapTime += dt;
-      this.twinLyap = yNext.map((v, i) => v + (this.twinLyap[i] - v) * this.delta0 / d);
-    }
-  }
-  twinDiagnostics() {
-    if (!this.twin) return {};
-    return {
-      error: Math.hypot(...this.twinFree.map((v, i) => v - this.y[i])),
-      lyapunov: this.lyapTime > 0 ? this.lyapSum / this.lyapTime : NaN,
-    };
-  }
-  perturbTwin() { this.initTwins(this.delta0 ?? 1e-6); }
-}
-
-/* 1. Zero-dimensional energy balance model with ice–albedo feedback. */
-export const EBM_DEFAULTS = { mu: 1, forcing: 0, depth: 50, sigma: 0, T0: 15, seed: 1 };
-const EBM = { Q: 342, A: 203.3, B: 2.09, aIce: 0.62, aWarm: 0.3, Tc: -10, width: 6 };
-export function ebmAlbedo(T) {
-  return EBM.aWarm + (EBM.aIce - EBM.aWarm) * (1 - Math.tanh((T - EBM.Tc) / EBM.width)) / 2;
-}
-const ebmAlbedoSlope = T => -(EBM.aIce - EBM.aWarm) / (2 * EBM.width) / Math.cosh((T - EBM.Tc) / EBM.width) ** 2;
-// Heat capacity of a mixed layer of given depth, in W·yr·m⁻²·K⁻¹.
-const ebmCapacity = depth => 1025 * 3990 * depth / 3.156e7;
-export class EnergyBalance extends OdeSystem {
-  constructor(p) {
-    super(p, EBM_DEFAULTS);
-    this.dt = 0.02; this.C = ebmCapacity(this.p.depth);
-    this.y = [this.p.T0];
-    if (this.p.sigma > 0) this.noise = (y, dt) => [y[0] + this.p.sigma / this.C * Math.sqrt(dt) * this.random.normal()];
-    this.initial = this.budgetQuantity(this.y);
-  }
-  asr(T) { return this.p.mu * EBM.Q * (1 - ebmAlbedo(T)); }
-  olr(T) { return EBM.A - this.p.forcing + EBM.B * T; }
-  f(t, [T]) { return [(this.asr(T) - this.olr(T)) / this.C]; }
-  budgetQuantity([T]) { return this.C * T; }
-  budget() {
-    const T = this.y[0];
-    return { quantity: this.budgetQuantity(this.y), terms: { asr: this.asr(T), olr: -this.olr(T) } };
-  }
-  diagnostics() {
-    const T = this.y[0], lambda = EBM.B + this.p.mu * EBM.Q * ebmAlbedoSlope(T);
-    return { T, albedo: ebmAlbedo(T), N: this.asr(T) - this.olr(T), lambda, ecs: 3.7 / lambda, heat: this.C * T };
-  }
-  view() { return { kind: 'point', x: this.p.mu, y: this.y[0] }; }
-}
-// Equilibrium branch T*(μ), parametrised by T: μ = OLR(T) / (Q(1 − α(T))).
-export function ebmBranch(forcing = 0) {
-  const pts = [];
-  for (let T = -60; T <= 40; T += 0.25) {
-    const mu = (EBM.A - forcing + EBM.B * T) / (EBM.Q * (1 - ebmAlbedo(T)));
-    const slope = EBM.B + mu * EBM.Q * ebmAlbedoSlope(T); // −dN/dT
-    pts.push({ x: mu, y: T, stable: slope > 0 });
-  }
-  return pts;
-}
-
-/* 2. Stommel two-box thermohaline model (nondimensional). */
-export const STOMMEL_DEFAULTS = { eta1: 3, eta2: 1, eta3: 0.3, sigma: 0, start: 'thermal', seed: 1 };
-export class Stommel extends OdeSystem {
-  constructor(p) {
-    super(p, STOMMEL_DEFAULTS);
-    this.dt = 0.005;
-    // Start next to an equilibrium of the requested branch (if that branch exists for these η).
-    const { eta1, eta2, eta3 } = this.p, roots = [];
-    const g = q => eta1 / (1 + Math.abs(q)) - eta2 / (eta3 + Math.abs(q)) - q;
-    for (let q = -2; q < 4; q += 0.001) if (g(q) * g(q + 0.001) <= 0) roots.push(q + 0.0005);
-    const q0 = this.p.start === 'haline' ? (roots[0] < 0 ? roots[0] : -0.3) : (roots.at(-1) > 0.3 ? roots.at(-1) : 0.3);
-    const fromQ = q => [eta1 / (1 + Math.abs(q)), eta2 / (eta3 + Math.abs(q))];
-    this.y = this.p.T0 !== undefined ? [this.p.T0, this.p.S0] : fromQ(q0).map(v => v * 1.01);
-    if (this.p.sigma > 0) this.noise = (y, dt) => [y[0], y[1] + this.p.sigma * Math.sqrt(dt) * this.random.normal()];
-    this.initial = this.budgetQuantity(this.y);
-  }
-  f(t, [T, S]) {
-    const q = Math.abs(T - S), { eta1, eta2, eta3 } = this.p;
-    return [eta1 - T * (1 + q), eta2 - S * (eta3 + q)];
-  }
-  budgetQuantity([, S]) { return S; }
-  budget() {
-    const [T, S] = this.y, q = Math.abs(T - S);
-    return { quantity: S, terms: { freshwater: this.p.eta2, restoring: -this.p.eta3 * S, advection: -q * S } };
-  }
-  diagnostics() { const [T, S] = this.y; return { T, S, q: T - S }; }
-  view() { return { kind: 'point', x: this.p.eta2, y: this.y[0] - this.y[1] }; }
-}
-// Equilibria: for each q, T = η1/(1+|q|), S = η2/(η3+|q|) ⇒ η2(q) = (η1/(1+|q|) − q)(η3+|q|).
-export function stommelBranch({ eta1 = 3, eta3 = 0.3 } = {}) {
-  const pts = [];
-  for (let q = -1.5; q <= 3; q += 0.005) {
-    const eta2 = (eta1 / (1 + Math.abs(q)) - q) * (eta3 + Math.abs(q));
-    if (eta2 < -0.2 || eta2 > 3) continue;
-    const T = eta1 / (1 + Math.abs(q)), S = eta2 / (eta3 + Math.abs(q)), s = Math.sign(q) || 1;
-    // Jacobian of (T', S') at the equilibrium; stable iff trace < 0 and det > 0.
-    const a = -(1 + Math.abs(q)) - T * s, b = T * s, c = -S * s, d = -(eta3 + Math.abs(q)) + S * s;
-    pts.push({ x: eta2, y: q, stable: a + d < 0 && a * d - b * c > 0 });
-  }
-  return pts;
-}
-
-/* 3. ENSO recharge oscillator (Jin 1997; Burgers et al. 2005), time in months. */
-export const ENSO_DEFAULTS = { R0: -0.03, R1: 0.03, period: 48, r: 0.02, sigma: 0.15, T0: 1, h0: 0, seed: 1 };
-export class RechargeOscillator extends OdeSystem {
-  constructor(p) {
-    super(p, ENSO_DEFAULTS);
-    this.dt = 0.1; this.omega = TAU / this.p.period; this.y = [this.p.T0, this.p.h0];
-    if (this.p.sigma > 0) this.noise = (y, dt) => [y[0] + this.p.sigma * Math.sqrt(dt) * this.random.normal(), y[1]];
-    this.initial = this.budgetQuantity(this.y);
-  }
-  growth(t) { return this.p.R0 + this.p.R1 * Math.cos(TAU * t / 12); }
-  f(t, [T, h]) { return [this.growth(t) * T + this.omega * h, -this.p.r * h - this.omega * T]; }
-  // With α = γ = ω the quadratic form E = (T² + h²)/2 is conserved when R = r = σ = 0.
-  budgetQuantity([T, h]) { return this.omega * (T * T + h * h) / 2; }
-  budget() {
-    const [T, h] = this.y;
-    return { quantity: this.budgetQuantity(this.y), terms: { growth: this.omega * this.growth(this.t) * T * T, damping: -this.omega * this.p.r * h * h } };
-  }
-  diagnostics() { const [T, h] = this.y; return { T, h, R: this.growth(this.t), month: ((this.t % 12) + 12) % 12 }; }
-  view() { return { kind: 'point', x: this.y[1], y: this.y[0] }; }
-}
-
-/* 4. Lorenz (1963). */
-export const L63_DEFAULTS = { sigma: 10, rho: 28, beta: 8 / 3, seed: 1 };
-export class Lorenz63 extends OdeSystem {
-  constructor(p) {
-    super(p, L63_DEFAULTS);
-    this.dt = 0.005; this.y = [1, 1, 20]; this.twin = true; this.initTwins();
-    this.initial = this.budgetQuantity(this.y);
-  }
-  f(t, [x, y, z]) { const { sigma, rho, beta } = this.p; return [sigma * (y - x), x * (rho - z) - y, x * y - beta * z]; }
-  // V = (x² + y² + (z − σ − ρ)²)/2 decays outside an ellipsoid → bounded attractor.
-  budgetQuantity([x, y, z]) { const { sigma, rho } = this.p; return (x * x + y * y + (z - sigma - rho) ** 2) / 2; }
-  budget() {
-    const [x, y, z] = this.y, { sigma, rho, beta } = this.p;
-    return { quantity: this.budgetQuantity(this.y), terms: { dissipation: -sigma * x * x - y * y - beta * z * z, forcing: beta * (sigma + rho) * z } };
-  }
-  diagnostics() {
-    const [x, y, z] = this.y, d = this.f(this.t, this.y);
-    return { x, y, z, E: (x * x + y * y + z * z) / 2, speed: Math.hypot(...d), contraction: -(this.p.sigma + 1 + this.p.beta), ...this.twinDiagnostics() };
-  }
-  view() { return { kind: 'point', x: this.y[0], y: this.y[2], tx: this.twinFree[0], ty: this.twinFree[2] }; }
-}
-
-/* 5. Lorenz (1996) single-scale model. */
-export const L96_DEFAULTS = { n: 40, F: 8, seed: 1 };
-export class Lorenz96 extends OdeSystem {
-  constructor(p) {
-    super(p, L96_DEFAULTS);
-    this.dt = 0.01; const n = this.p.n;
-    this.y = Array.from({ length: n }, (_, i) => this.p.F + (i === 0 ? 0.01 : 0) + 1e-3 * this.random.normal());
-    this.twin = true; this.initTwins(); this.initial = this.budgetQuantity(this.y);
-  }
-  f(t, x) {
-    const n = x.length, F = this.p.F, out = new Array(n);
-    for (let i = 0; i < n; i++) out[i] = (x[(i + 1) % n] - x[(i - 2 + n) % n]) * x[(i - 1 + n) % n] - x[i] + F;
-    return out;
-  }
-  budgetQuantity(x) { let s = 0; for (const v of x) s += v * v; return s / (2 * x.length); }
-  budget() {
-    const x = this.y, n = x.length; let adv = 0, dis = 0, frc = 0;
-    for (let i = 0; i < n; i++) {
-      adv += x[i] * (x[(i + 1) % n] - x[(i - 2 + n) % n]) * x[(i - 1 + n) % n];
-      dis -= x[i] * x[i]; frc += this.p.F * x[i];
-    }
-    return { quantity: this.budgetQuantity(x), terms: { forcing: frc / n, dissipation: dis / n, advection: adv / n } };
-  }
-  diagnostics() {
-    const x = this.y; let mean = 0, max = 0; for (const v of x) { mean += v; max = Math.max(max, Math.abs(v)); }
-    return { E: this.budgetQuantity(x), mean: mean / x.length, max, ...this.twinDiagnostics() };
-  }
-  view() { return { kind: 'row', values: Float64Array.from(this.y), twin: Float64Array.from(this.twinFree) }; }
-}
+// Spatially extended systems: Kuramoto–Sivashinsky and two-layer QG.
+import { TAU, rng, fft, fft2, wavenumber, hermitian, hermitian2 } from './core.js';
 
 /* 6. Kuramoto–Sivashinsky, u_t = −u u_x − u_xx − u_xxxx, ETDRK4 (Kassam & Trefethen 2005). */
 export const KS_DEFAULTS = { L: 22, n: 64, dt: 0.25, seed: 1 };
@@ -414,9 +114,15 @@ export class KuramotoSivashinsky {
     const u = this.physical(), n = this.p.n, k = this.field.k; let max = 0, mean = 0, Z = 0;
     for (const v of u) { max = Math.max(max, Math.abs(v)); mean += v / n; }
     for (let i = 0; i < n; i++) Z += k[i] ** 2 * (this.vr[i] ** 2 + this.vi[i] ** 2);
-    return { E: this.budget().quantity, Z: Z / (2 * n * n), max, mean, error: this.distance(this.twinR, this.twinI), lyapunov: this.lyapTime > 0 ? this.lyapSum / this.lyapTime : NaN };
+    return { E: this.budget().quantity, Z: Z / (2 * n * n), max, mean, u0: u[0], error: this.distance(this.twinR, this.twinI), lyapunov: this.lyapTime > 0 ? this.lyapSum / this.lyapTime : NaN };
   }
   view() { return { kind: 'row', values: this.physical(), twin: this.physical(this.twinR, this.twinI) }; }
+  // Energy spectrum |û_k|²/n² for k = 1 … n/2 (wavenumber in units of 2π/L).
+  spectrum() {
+    const n = this.p.n, k = [], E = [];
+    for (let i = 1; i <= n / 2; i++) { k.push(i * 2 * Math.PI / this.p.L); E.push((this.vr[i] ** 2 + this.vi[i] ** 2) / n ** 2); }
+    return { k, E, label: 'k' };
+  }
 }
 
 /* 7. Two-layer (Phillips) QG with imposed vertical shear, pseudo-spectral, doubly periodic [0, 2π]². */
@@ -559,6 +265,15 @@ export class TwoLayerQG {
     if (this.umax === undefined) this.rhs(this.q);
     return { KE: KE * s, APE: APE * s, E: (KE + APE) * s, Z: Z * s, max: this.umax, dt: this.lastDt ?? 0 };
   }
+  // Shell-summed kinetic-energy spectrum ½k²|ψ̂|² of both layers, k = 1 … n/2.
+  spectrum() {
+    const psi = this.invert(this.q), n = this.n, E = new Array(n / 2 + 1).fill(0), s = 1 / (this.size * this.size);
+    for (let i = 0; i < this.size; i++) {
+      const K = Math.round(Math.sqrt(this.K2[i]));
+      if (K >= 1 && K <= n / 2) E[K] += 0.5 * this.K2[i] * (psi[0][0][i] ** 2 + psi[0][1][i] ** 2 + psi[1][0][i] ** 2 + psi[1][1][i] ** 2) * s;
+    }
+    return { k: E.map((_, i) => i).slice(1), E: E.slice(1), label: 'k', kd: this.p.kd };
+  }
   view(field = 'q1') {
     const psi = this.invert(this.q);
     let re, im;
@@ -570,26 +285,3 @@ export class TwoLayerQG {
   }
 }
 
-export const SYSTEMS = { ebm: EnergyBalance, stommel: Stommel, enso: RechargeOscillator, l63: Lorenz63, l96: Lorenz96, ks: KuramotoSivashinsky, qg2: TwoLayerQG };
-
-// Advance n steps; return block-averaged budget rates (trapezoidal in time) and the residual.
-export function advance(sys, steps, onStep = null) {
-  let b0 = sys.budget(), total = 0; const E0 = b0.quantity, acc = {};
-  const noise0 = sys.noiseWork ?? 0, filter0 = sys.filterWork ?? 0;
-  for (let s = 0; s < steps; s++) {
-    const dt = sys.step(), b1 = sys.budget();
-    for (const key in b1.terms) acc[key] = (acc[key] ?? 0) + dt * (b0.terms[key] + b1.terms[key]) / 2;
-    total += dt; b0 = b1;
-    if (onStep) onStep(sys, s);
-  }
-  const rates = {};
-  if (total > 0) {
-    for (const key in acc) rates[key] = acc[key] / total;
-    if (sys.noiseWork !== undefined && sys.noise) rates.noise = (sys.noiseWork - noise0) / total;
-    if (sys.filterWork !== undefined) rates.filter = (sys.filterWork - filter0) / total;
-    const sum = Object.values(rates).reduce((a, b) => a + b, 0);
-    rates.residual = (b0.quantity - E0) / total - sum;
-    rates.tendency = (b0.quantity - E0) / total;
-  }
-  return { rates, quantity: b0.quantity, elapsed: total };
-}

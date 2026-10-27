@@ -1,4 +1,4 @@
-// Independent, dependency-free numerical kernels. All variables are nondimensional.
+// Rotating shallow-water / NS / QG finite-volume and Arakawa kernels on a periodic [0,2π]² grid. All variables are nondimensional.
 export const TAU=2*Math.PI;
 function fft(a,b,inverse=false){
   const n=a.length;

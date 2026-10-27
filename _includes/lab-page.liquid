@@ -1,0 +1,117 @@
+<link rel="stylesheet" href="{{ '/assets/css/lab.css' | relative_url | bust_file_cache }}">
+
+<div class="lab-page" data-lab="{{ include.lab }}">
+  <nav class="ol-toc" aria-label="페이지 안 이동">
+    <a href="#lab-problem">문제 지도</a>
+    <a href="#lab-overview">시스템 사다리</a>
+    <a href="#lab-sim">직접 적분하기</a>
+    <a href="#lab-detail">방정식과 진단량</a>
+    <a href="#lab-ensemble">앙상블과 평가</a>
+    <a href="#lab-data">데이터</a>
+    <a href="#lab-sources">참고문헌</a>
+  </nav>
+
+  <section id="lab-problem" class="ol-section">
+    <div class="ol-head">
+      <h2>무엇이 문제인가</h2>
+      <p>{{ include.problem_intro }}</p>
+    </div>
+  </section>
+
+  <section id="lab-overview" class="ol-section">
+    <div class="ol-head">
+      <h2>저차원에서 고차원으로</h2>
+      <p>각 시스템이 어떤 물리를 남기고 무엇을 버렸는지, 그래서 어떤 질문에 답할 수 있는지가 다릅니다. 이름을 누르면 그 시스템으로 이동합니다.</p>
+    </div>
+    <div class="comparison-scroll" tabindex="0" role="region" aria-label="시스템 비교 표">
+      <table id="lab-ladder" class="cl-table"></table>
+    </div>
+    <h3 class="cl-subhead">Task로 다시 보기</h3>
+    <p class="ol-fine">같은 시스템이라도 task에 따라 쓰는 방법과 주의할 점이 달라집니다.</p>
+    <div id="lab-task-chips" class="compare-options"></div>
+    <div id="lab-task-view" class="cl-task-view"></div>
+  </section>
+
+  <section id="lab-sim" class="ol-section">
+    <div class="ol-head">
+      <h2>직접 적분하기</h2>
+      <p>모든 계산은 브라우저의 Web Worker에서 실제로 수치 적분합니다. 파라미터를 바꾼 뒤 적용하면 처음부터 다시 시작합니다. 아래 버튼으로 같은 실행을 여러 시각화로 바꿔 볼 수 있습니다.</p>
+    </div>
+    <div id="lab-tabs" class="model-tabs cl-tabs" role="tablist" aria-label="시스템 선택"></div>
+    <p id="lab-summary"></p>
+    <div class="sim-layout">
+      <aside class="sim-controls ol-card">
+        <div id="lab-params"></div>
+        <label id="lab-keep-wrap" class="ol-check" hidden><input type="checkbox" id="lab-keep" checked> 현재 상태에서 이어가기 (hysteresis 실험)</label>
+        <button type="button" id="lab-apply" class="ol-btn ol-btn-primary">설정 적용</button>
+        <p id="lab-pending" class="sim-pending" hidden>설정이 바뀌었습니다. 적용해야 계산에 반영됩니다.</p>
+      </aside>
+      <div class="sim-display">
+        <div class="sim-toolbar">
+          <div class="lab-sim-buttons">
+            <button type="button" id="lab-play" class="ol-btn ol-btn-primary" aria-pressed="false">▶ 재생</button>
+            <button type="button" id="lab-step" class="ol-btn">한 스텝</button>
+            <button type="button" id="lab-perturb" class="ol-btn" hidden>쌍둥이 다시 섭동</button>
+            <button type="button" id="lab-particles" class="ol-btn" hidden>표류 입자 다시 뿌리기</button>
+            <button type="button" id="lab-experiment" class="ol-btn" hidden>앙상블 실험 실행</button>
+          </div>
+          <label for="lab-rate">재생 속도<select id="lab-rate"><option value="1">1×</option><option value="3" selected>3×</option><option value="10">10×</option></select></label>
+        </div>
+        <div class="sim-field-top">
+          <label id="lab-field-wrap" for="lab-field" hidden>표시할 장<select id="lab-field"></select></label>
+          <label id="lab-section-wrap" for="lab-section" hidden>단면 y<select id="lab-section"><option value="0.25" selected>0.25 (남쪽 gyre)</option><option value="0.5">0.5</option><option value="0.75">0.75 (북쪽 gyre)</option></select></label>
+          <b id="lab-time">t = 0</b>
+        </div>
+        <div id="lab-status" role="status" aria-live="polite">계산기를 준비하고 있습니다…</div>
+        <div id="lab-metrics" class="sim-metrics"></div>
+      </div>
+    </div>
+    <div id="lab-views" class="compare-options lab-views" role="tablist" aria-label="시각화 선택"></div>
+    <div id="lab-view-legend" class="cl-legend"></div>
+    <canvas id="lab-view" width="900" height="500" role="img" aria-label="선택한 시각화"></canvas>
+    <p id="lab-view-caption" class="sim-help"></p>
+  </section>
+
+  <section id="lab-detail" class="ol-section">
+    <div class="ol-head"><h2 id="lab-detail-title">방정식과 진단량</h2></div>
+    <h3 class="cl-subhead">지배 방정식</h3>
+    <div id="lab-equations" class="cl-math"></div>
+    <p id="lab-variables"></p>
+    <div id="lab-physics" class="method-grid cl-physics"></div>
+    <h3 class="cl-subhead">에너지·enstrophy·유속·수지: 식과 의미</h3>
+    <div id="lab-diagnostics"></div>
+    <h3 class="cl-subhead">이 시스템을 보는 방법들</h3>
+    <div id="lab-viewguide"></div>
+    <h3 class="cl-subhead">이 페이지의 수치해법과 검증</h3>
+    <p id="lab-numerics"></p>
+    <h3 class="cl-subhead">어떤 task에, 어떤 method로, 무엇이 중요해지나</h3>
+    <div id="lab-tasks"></div>
+    <h3 class="cl-subhead">이 시스템의 참고문헌</h3>
+    <ul id="lab-sysrefs" class="cl-refs"></ul>
+  </section>
+
+  <section id="lab-ensemble" class="ol-section">
+    <div class="ol-head">
+      <h2>앙상블과 평가</h2>
+      <p>장기 적분이 "오래 살아남는가"와 "물리적으로 의미 있는 통계와 다양성을 보존하는가"는 다른 질문입니다.</p>
+    </div>
+  </section>
+
+  <section id="lab-data" class="ol-section">
+    <div class="ol-head">
+      <h2>데이터</h2>
+      <p>{{ include.data_intro }}</p>
+    </div>
+    <h3 class="cl-subhead">실제 관측 자료</h3>
+    <div id="lab-realdata" class="lab-real"></div>
+    <div id="lab-data-map"></div>
+  </section>
+
+  <section id="lab-sources" class="ol-section">
+    <div class="ol-head"><h2>참고문헌과 자료</h2></div>
+    <ul id="lab-refs" class="cl-refs"></ul>
+    <p class="ol-fine">모든 시스템은 교육·탐색용으로 단순화한 형태입니다. 매개변수는 문헌의 전형적인 값이나 그 근처에서 골랐지만 실제 해역·기후의 정량적 예측을 제공하지 않습니다. 관측 자료는 원 제공처의 조건을 따르며, 이 페이지의 처리(지점 추출·기후값 계산)는 원자료와 구분됩니다.</p>
+  </section>
+</div>
+
+<script type="module" src="{{ '/assets/js/lab/ui.js' | relative_url }}"></script>

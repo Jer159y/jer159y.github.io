@@ -2,6 +2,8 @@ const $ = selector => document.querySelector(selector);
 const NS = 'http://www.w3.org/2000/svg';
 const CHART_TOP = 18;
 const CHART_BOTTOM = 210;
+const NORMAL_BLUE = '#1769b3';
+const DEPARTURE_RED = '#c83a3a';
 const copy = {
   single: {
     kind: 'SINGLE NODE EPILEPTOR', title: '신호의 흔들림이 커질 때',
@@ -27,6 +29,97 @@ function add(parent, tag, attrs = {}, label) {
   if (label !== undefined) node.textContent = label;
   parent.appendChild(node);
   return node;
+}
+
+function episodeFromSamples(points, kind) {
+  const crossings = points.filter(row => row[0] >= 5 && row.slice(1).some(value => value <= -0.5));
+  let onset = crossings.length ? crossings[0][0] : null;
+  let offset = crossings.length ? Math.min(points.at(-1)[0], crossings.at(-1)[0] + 1) : null;
+  if (kind === 'single') {
+    let sustained = 0;
+    for (let i = 40; i < points.length; i += 4) {
+      const values = points.slice(i - 40, i).map(row => row[1]);
+      const sorted = [...values].sort((a, b) => a - b);
+      const median = (sorted[19] + sorted[20]) / 2;
+      const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
+      const deviation = Math.sqrt(values.reduce((sum, value) => sum + (value - mean) ** 2, 0) / values.length);
+      sustained = median > 0.910824 || deviation < 0.0486308 ? sustained + 1 : 0;
+      if (sustained >= 5) {
+        onset = onset === null ? points[i][0] : Math.min(onset, points[i][0]);
+        offset = points.at(-1)[0];
+        break;
+      }
+    }
+  }
+  return {onset, offset};
+}
+
+function addColoredTrace(svg, points, series, x, y, onset, offset, normalColor, departureColor, width) {
+  const render = (start, end, color) => {
+    if (end <= start) return;
+    const part = points.slice(start, end + 1);
+    const d = part.map((row, i) => `${i ? 'L' : 'M'}${x(row[0]).toFixed(1)} ${y(row[series]).toFixed(1)}`).join(' ');
+    add(svg, 'path', {d, fill:'none', stroke:color, 'stroke-width':width, 'stroke-linejoin':'round'});
+  };
+  let start = 0;
+  let departed = onset !== null && (points[0][0] >= onset && points[0][0] <= offset);
+  for (let i = 1; i < points.length; i++) {
+    const midpoint = (points[i-1][0] + points[i][0]) / 2;
+    const next = onset !== null && midpoint >= onset && midpoint <= offset;
+    if (next !== departed) {
+      render(start, i, departed ? departureColor : normalColor);
+      start = i - 1;
+      departed = next;
+    }
+  }
+  render(start, points.length - 1, departed ? departureColor : normalColor);
+}
+
+let gtData;
+function drawGroundTruth() {
+  const trace = gtData.traces[Number($('#gt-excitability').value)];
+  const svg = $('#gt-trajectory-chart');
+  svg.replaceChildren();
+  const left = 46, right = 730, top = 18, bottom = 220;
+  const x = time => left + time / gtData.metadata.rolloutSeconds * (right - left);
+  const y = value => bottom - (value + 3) / 6 * (bottom - top);
+  for (const value of [-3,-2,-1,0,1,2,3]) {
+    const py = y(value);
+    add(svg,'line',{x1:left,y1:py,x2:right,y2:py,stroke:value===0?'#c2cdd3':'#e6ecef'});
+    add(svg,'text',{x:left-8,y:py+4,'text-anchor':'end',fill:'#6e838e','font-size':11},String(value));
+  }
+  for (const time of [0,35,70,105,140]) {
+    add(svg,'text',{x:x(time),y:bottom+21,'text-anchor':'middle',fill:'#6e838e','font-size':11},`${time}s`);
+  }
+  const thresholdY = y(-0.5);
+  add(svg,'line',{x1:left,y1:thresholdY,x2:right,y2:thresholdY,stroke:'#9fabb3','stroke-dasharray':'5 5'});
+  if (trace.onset !== null) {
+    add(svg,'rect',{x:x(trace.onset),y:top,width:x(trace.offset)-x(trace.onset),height:bottom-top,fill:'#c83a3a','fill-opacity':0.065});
+    add(svg,'line',{x1:x(trace.onset),y1:top,x2:x(trace.onset),y2:bottom,stroke:DEPARTURE_RED,'stroke-dasharray':'4 4'});
+  }
+  addColoredTrace(svg,trace.samples,1,x,y,trace.onset,trace.offset,NORMAL_BLUE,DEPARTURE_RED,1.8);
+  const x0 = trace.x0.toFixed(2).replace('-', '−');
+  $('#gt-x0-value').textContent = `x₀ = ${x0}`;
+  $('#gt-summary').textContent = trace.onset === null
+    ? `x₀ = ${x0}: 140초 동안 −0.5 기준의 정상 이탈이 관찰되지 않았습니다.`
+    : `x₀ = ${x0}: ${trace.onset.toFixed(1)}초에 처음 −0.5 아래로 내려갑니다. 빨간 구간은 발작 유사 이탈을 보여 줍니다.`;
+  svg.setAttribute('aria-label',`Epileptor GT x0 ${x0}. ${trace.onset === null ? '140초 동안 정상 이탈 없음' : `${trace.onset.toFixed(1)}초에 정상 이탈 시작`}. 파랑은 정상형, 빨강은 발작 유사 이탈 구간.`);
+  const scroller = svg.parentElement;
+  scroller.scrollLeft = trace.onset === null ? 0 : x(trace.onset) / 760 * svg.clientWidth - scroller.clientWidth / 2;
+}
+
+async function initGroundTruth() {
+  try {
+    const response = await fetch('./data/gt-parameter-trajectories.json');
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    gtData = await response.json();
+    $('#gt-excitability').max = String(gtData.traces.length - 1);
+    $('#gt-excitability').addEventListener('input', drawGroundTruth);
+    drawGroundTruth();
+  } catch (error) {
+    $('#gt-summary').textContent = '참조 모형 궤적을 읽지 못했습니다.';
+    console.error(error);
+  }
 }
 function accent() { return getComputedStyle($('.poster-explorer')).getPropertyValue('--pe-accent').trim() || '#168d94'; }
 function setMode(next) {
@@ -106,17 +199,17 @@ function drawTrajectory() {
     const t=points[points.length-1][0]*k/4,px=x(t);
     add(svg,'text',{x:px,y:bottom+20,'text-anchor':'middle',fill:'#7a838a','font-size':10},`${Math.round(t)}s`);
   }
-  c.waveNames.forEach((_,series)=>{
-    const path=points.map((row,i)=>`${i?'L':'M'}${x(row[0]).toFixed(1)} ${y(row[series+1]).toFixed(1)}`).join(' ');
-    add(svg,'path',{d:path,fill:'none',stroke:series===0?accent():c.colors[series],'stroke-width':series===0?1.8:1.3,'stroke-linejoin':'round'});
-  });
+  const episode=episodeFromSamples(points,mode);
+  const normalColors=[NORMAL_BLUE,'#4c8dd4','#8ab7e8'];
+  const departureColors=[DEPARTURE_RED,'#df6767','#ee9797'];
+  c.waveNames.forEach((_,series)=>addColoredTrace(svg,points,series+1,x,y,episode.onset,episode.offset,normalColors[series],departureColors[series],series===0?1.8:1.3));
   if(mode==='single') {
     const py=y(-.5);
     if(py>=top && py<=bottom) add(svg,'line',{x1:left,y1:py,x2:right,y2:py,stroke:'#a5aab0','stroke-dasharray':'4 4'});
   }
-  const label=mode==='single'?'단일 신호 x₂−x₁': '노드 1 청록 · 노드 2 주황 · 노드 3 보라';
+  const label=mode==='single'?'단일 신호 x₂−x₁': '세 노드의 x₂−x₁ 신호';
   svg.setAttribute('aria-label',`${copy[mode].unit} ${curves[mode].scdt[index].x.toFixed(4)}에서 생성한 ${label}의 시간 궤적`);
-  $('#trajectory-caption').textContent=`${label} · 고정 모델에서 별도로 생성한 예시 1개입니다. 세로축은 해당 파형 범위에 맞춰 표시합니다. 정상 유지 개수는 위의 독립적인 30회 반복 시험 결과입니다. 이탈 이후의 출력 포화는 발작 파형으로 해석할 수 없습니다.`;
+  $('#trajectory-caption').textContent=`${label} · 파랑은 정상형 구간, 빨강은 이탈 기준에 걸린 구간입니다. 화면용 희소 표본의 색 판정은 공식 30회 집계와 다를 수 있습니다. 이탈 뒤 출력 포화는 실제 발작 파형이 아닙니다.`;
 }
 function select(i){index=i;$('#coordinate').value=String(i);updateSelection();}
 function updateSelection() {
@@ -151,7 +244,17 @@ async function init(){
     }
     $('.poster-tabs').addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight'].includes(event.key))return;event.preventDefault();const next=mode==='single'?'multi':'single';setMode(next);$(`#tab-${next}`).focus();});
     $('#coordinate').addEventListener('input',event=>select(Number(event.target.value)));
+    $('#departure-example').addEventListener('click',()=>{
+      const examples=trajectories[mode];
+      let example=examples.findIndex(trace=>{
+        const trough=trace.samples.find(row=>row[0]>=25 && row[0]<=110 && row.slice(1).some(value=>value<=-0.5));
+        return trough!==undefined;
+      });
+      if(example<0)example=examples.findIndex(trace=>episodeFromSamples(trace.samples,mode).onset!==null);
+      if(example>=0)select(example);
+    });
     setMode('single');
   }catch(error){$('#experiment-panel').innerHTML='<p class="load-error">실험 데이터를 읽지 못했습니다. GitHub Pages 또는 로컬 Jekyll 서버에서 열어 주세요.</p>';console.error(error);}
 }
 init();
+initGroundTruth();

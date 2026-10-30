@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 215" role="img" aria-labelledby="title description">
+  <title id="title">정상 전용 학습과 독립 경계 시험의 흐름</title>
+  <desc id="description">정상 GT 신호에서 통계를 측정해 SCDT를 학습하고 고정한다. 고정된 트윈과 GT를 새 조건에서 각각 30회 시험해 정상 유지 곡선과 50퍼센트 경계를 비교한다.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#6d8490"/></marker></defs>
+  <rect x="1" y="1" width="898" height="213" rx="15" fill="#f7fafb" stroke="#dce5e8"/>
+  <text x="26" y="30" fill="#49616b" font-size="14" font-weight="700">실험 흐름 · 정상 자료로 학습 → 모델 고정 → 경계 비교</text>
+  <rect x="24" y="62" width="174" height="65" rx="10" fill="#eef3fb" stroke="#9bb8d8"/>
+  <text x="111" y="88" text-anchor="middle" fill="#255d9f" font-size="13" font-weight="700">정상 GT 신호</text><text x="111" y="108" text-anchor="middle" fill="#59717c" font-size="11">합성 기록만 사용</text>
+  <path d="M201 94H229" stroke="#6d8490" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="234" y="62" width="174" height="65" rx="10" fill="#fff" stroke="#b9cbd2"/>
+  <text x="321" y="88" text-anchor="middle" fill="#274b5c" font-size="13" font-weight="700">신호 통계 측정</text><text x="321" y="108" text-anchor="middle" fill="#59717c" font-size="11">σ · PE / 평균 · σ</text>
+  <path d="M411 94H439" stroke="#6d8490" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="444" y="62" width="174" height="65" rx="10" fill="#eef7ee" stroke="#9ac09e"/>
+  <text x="531" y="88" text-anchor="middle" fill="#35654b" font-size="13" font-weight="700">SCDT 선택·고정</text><text x="531" y="108" text-anchor="middle" fill="#59717c" font-size="11">정상 검증으로만 선택</text>
+  <path d="M621 94H649" stroke="#6d8490" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="654" y="62" width="222" height="65" rx="10" fill="#fff4f2" stroke="#d6a7a0"/>
+  <text x="765" y="88" text-anchor="middle" fill="#a33f3f" font-size="13" font-weight="700">새 조건에서 30회 생성</text><text x="765" y="108" text-anchor="middle" fill="#7b6161" font-size="11">GT도 별도로 같은 규칙 평가</text>
+  <path d="M765 132V150" stroke="#6d8490" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="557" y="156" width="319" height="39" rx="9" fill="#fff" stroke="#b9cbd2"/>
+  <text x="716" y="181" text-anchor="middle" fill="#274b5c" font-size="12" font-weight="700">정상 유지 비율 곡선 · 50% 경계 비교</text>
+  <text x="27" y="181" fill="#667f8a" font-size="12">시험 궤적은 학습에 다시 넣지 않습니다.</text>
+</svg>

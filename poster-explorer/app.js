@@ -1,5 +1,7 @@
 const $ = selector => document.querySelector(selector);
 const NS = 'http://www.w3.org/2000/svg';
+const CHART_TOP = 18;
+const CHART_BOTTOM = 210;
 const copy = {
   single: {
     kind: 'SINGLE NODE EPILEPTOR', title: '신호의 흔들림이 커질 때',
@@ -56,7 +58,7 @@ function drawChart() {
   svg.replaceChildren();
   const all = [...d.scdt, ...d.gt];
   const min = Math.min(...all.map(p => p.x)), max = Math.max(...all.map(p => p.x));
-  const left = 45, right = 727, top = 22, bottom = 285;
+  const left = 45, right = 727, top = CHART_TOP, bottom = CHART_BOTTOM;
   const x = value => left + (mode === 'multi' ? max-value : value-min) / (max-min) * (right-left);
   const y = rate => bottom-rate*(bottom-top);
   for (const rate of [0,.25,.5,.75,1]) {
@@ -129,7 +131,7 @@ function updateSelection() {
   const min=Number($('#chart').dataset.min),max=Number($('#chart').dataset.max);
   const px=45+(mode==='multi'?max-p.x:p.x-min)/(max-min)*682;
   $('#selected-line').setAttribute('x1',px);$('#selected-line').setAttribute('x2',px);
-  $('#selected-dot').setAttribute('cx',px);$('#selected-dot').setAttribute('cy',285-rate*263);
+  $('#selected-dot').setAttribute('cx',px);$('#selected-dot').setAttribute('cy',CHART_BOTTOM-rate*(CHART_BOTTOM-CHART_TOP));
   const chartScroll=$('#chart').parentElement;
   if(chartScroll.scrollWidth>chartScroll.clientWidth){
     chartScroll.scrollLeft=px/760*$('#chart').clientWidth-chartScroll.clientWidth/2;

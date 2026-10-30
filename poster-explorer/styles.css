@@ -59,3 +59,138 @@ body:has(.poster-explorer) footer.fixed-bottom {
     margin-bottom: 0.4rem;
   }
 }
+
+.poster-story {
+  display: flex;
+  align-items: stretch;
+  gap: 0.55rem;
+  margin: 1.4rem 0;
+}
+
+.poster-story > div {
+  flex: 1;
+  min-width: 0;
+  padding: 0.9rem;
+  border: 1px solid var(--pe-line);
+  border-radius: 0.55rem;
+  background: var(--pe-card);
+}
+
+.poster-story > div span,
+.poster-gt-card-head span {
+  display: block;
+  color: var(--pe-accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.poster-story > div strong {
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.poster-story-arrow {
+  align-self: center;
+  color: var(--pe-accent);
+  font-size: 1.2rem;
+}
+
+.poster-gt-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.4rem 0 1rem;
+}
+
+.poster-gt-card {
+  margin: 0;
+  border: 1px solid var(--pe-line);
+  border-radius: 0.65rem;
+  overflow: hidden;
+  background: var(--pe-card);
+}
+
+.poster-gt-card-head {
+  padding: 1rem 1rem 0.7rem;
+}
+
+.poster-gt-card-head strong {
+  font-size: 1rem;
+}
+
+.poster-gt-crop {
+  overflow: hidden;
+  border-top: 1px solid var(--pe-line);
+  border-bottom: 1px solid var(--pe-line);
+}
+
+.poster-gt-crop img {
+  display: block;
+  width: 200%;
+  max-width: none;
+  height: auto;
+  margin-top: -4%;
+}
+
+.poster-gt-card figcaption {
+  color: var(--pe-muted);
+  font-size: 0.8rem;
+  line-height: 1.65;
+  padding: 0.9rem 1rem 1rem;
+}
+
+.poster-method-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  list-style: none;
+  padding: 0;
+  margin: 1.4rem 0;
+}
+
+.poster-method-steps li {
+  display: flex;
+  gap: 0.9rem;
+  padding: 1rem;
+  border: 1px solid var(--pe-line);
+  border-radius: 0.55rem;
+}
+
+.poster-method-steps li > span {
+  color: var(--pe-accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.poster-method-steps h3 {
+  font-size: 0.95rem;
+  margin: 0 0 0.45rem;
+}
+
+.poster-method-steps p {
+  color: var(--pe-muted);
+  font-size: 0.82rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.poster-outcome {
+  margin-top: 1rem;
+}
+
+@media (max-width: 750px) {
+  .poster-story {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .poster-story-arrow {
+    display: none;
+  }
+
+  .poster-gt-grid,
+  .poster-method-steps {
+    grid-template-columns: 1fr;
+  }
+}

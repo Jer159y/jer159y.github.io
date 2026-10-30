@@ -10,37 +10,73 @@ nav: false
   <header class="poster-heading">
     <p class="poster-kicker">LAB / COLLABORATIVE RESEARCH / AICP 2026</p>
     <h1>Epileptor Digital Twin</h1>
-    <p class="poster-lead">정상 신호로만 학습한 모델의 통계 좌표를 움직여 보세요. <strong>정상 유지 비율과 그 좌표에서 생성된 신호 궤적</strong>을 함께 확인할 수 있습니다.</p>
+    <p class="poster-lead">정상 신호만 배운 디지털 트윈은 정상 상태가 무너지는 위치를 찾을 수 있을까요? <strong>참조 모형과 실험 방법을 먼저 살펴보고</strong>, 실제 결과를 직접 탐색해 보세요.</p>
     <p class="poster-note">합성 시뮬레이션 연구입니다. 환자 데이터나 임상 발작 예측 결과가 아닙니다.</p>
     <div class="poster-links"><a href="{{ '/lab/' | relative_url }}">← Lab</a><a href="./assets/AICP_2026_poster.pdf">AICP 2026 포스터 ↗</a><a href="./assets/project-README.md">연구 저장소 설명 ↗</a></div>
   </header>
 
-  <section class="poster-section" aria-labelledby="question-title">
-    <div class="poster-section-heading"><span>01 / QUESTION</span><h2 id="question-title">정상 상태는 어디에서 무너질까?</h2></div>
-    <p>Epileptor 수학 모형의 정상 신호와 통계값으로 디지털 트윈을 학습시켰습니다. 모형의 숨은 흥분성 파라미터와 전이 이후 신호는 학습에 사용하지 않았습니다. 새로운 통계 좌표에서 30개 궤적을 생성해, 정해진 관찰 시간 동안 정상으로 남은 비율을 측정했습니다.</p>
-    <p class="poster-small">여기서 ‘생존율’은 사람의 생존율이 아니라 <strong>시뮬레이션 궤적의 정상 유지 비율</strong>입니다.</p>
+  <section class="poster-section" id="introduction" aria-labelledby="introduction-title">
+    <div class="poster-section-heading"><span>01 / INTRODUCTION</span><h2 id="introduction-title">정상 상태는 어디에서 무너질까?</h2></div>
+    <p>뇌 활동을 수학적으로 표현한 Epileptor에서 정상 신호를 만듭니다. 이 신호만 학습한 통계 조건부 디지털 트윈(SCDT)이 새로운 조건에서도 정상 상태를 유지하는지 살펴봅니다. 관심 대상은 발작 파형의 재현이 아니라 <strong>정상 동역학이 사라지기 시작하는 경계</strong>입니다.</p>
+    <div class="poster-story" aria-label="연구 질문의 흐름">
+      <div><span>참조 모형</span><strong>Epileptor 신호 생성</strong></div><span class="poster-story-arrow" aria-hidden="true">→</span>
+      <div><span>정상 자료</span><strong>신호 통계 측정</strong></div><span class="poster-story-arrow" aria-hidden="true">→</span>
+      <div><span>디지털 트윈</span><strong>새 좌표에서 궤적 생성</strong></div><span class="poster-story-arrow" aria-hidden="true">→</span>
+      <div><span>비교</span><strong>정상 유지 비율</strong></div>
+    </div>
+    <p class="poster-small">이 페이지의 ‘생존율’은 사람의 생존율이 아니라 <strong>정해진 관찰 시간 동안 정상으로 남은 시뮬레이션 궤적의 비율</strong>입니다.</p>
+  </section>
+
+  <section class="poster-section" id="ground-truth" aria-labelledby="ground-truth-title">
+    <div class="poster-section-heading"><span>02 / GROUND TRUTH</span><h2 id="ground-truth-title">무엇을 기준으로 비교하나요?</h2></div>
+    <p><strong>Ground truth(GT)는 환자 기록이 아니라 Epileptor 수학 모형을 직접 시뮬레이션한 결과</strong>입니다. 단일 노드는 숨은 흥분성 파라미터 x₀를 바꾸고, 3노드는 삼각형으로 연결된 모형들의 공통 조건 λ를 움직입니다. 그 결과 정상 신호와 정상 이탈 신호가 만들어집니다. 이 파라미터들은 비교와 그림에만 사용하며 디지털 트윈의 입력에는 넣지 않습니다.</p>
+    <div class="poster-gt-grid">
+      <figure class="poster-gt-card">
+        <div class="poster-gt-card-head"><span>단일 노드</span><strong>한 모형의 정상과 이탈</strong></div>
+        <div class="poster-gt-crop"><img src="./assets/single-trajectories.png" alt="단일 노드 Epileptor 참조 모형의 정상 궤적은 불규칙한 피크를 유지하고, 이탈 궤적은 약 68초 이후 낮은 상태로 바뀌는 대표 사례" loading="lazy"></div>
+        <figcaption>원본 그림의 왼쪽 GT 패널입니다. 위는 정상 조건, 아래는 이탈 조건의 대표 궤적입니다. 관측 신호는 x₂ − x₁이며 점선은 이탈 판정에 쓰인 −0.5 기준입니다.</figcaption>
+      </figure>
+      <figure class="poster-gt-card">
+        <div class="poster-gt-card-head"><span>3노드 네트워크</span><strong>연결된 세 모형의 정상과 이탈</strong></div>
+        <div class="poster-gt-crop"><img src="./assets/multi-trajectories.png" alt="3노드 Epileptor 참조 모형에서 세 노드가 정상 피크를 보이다가 이탈 조건에서 차례로 낮은 상태로 바뀌는 대표 사례" loading="lazy"></div>
+        <figcaption>원본 그림의 왼쪽 GT 패널입니다. 색상은 세 노드의 x₂ − x₁ 신호를 뜻합니다. 이탈 조건에서는 연결된 노드가 서로 영향을 주며 변화합니다.</figcaption>
+      </figure>
+    </div>
+    <p class="poster-small">두 그림은 대표 사례입니다. 실제 경계 비교에는 각 조건에서 독립적으로 생성한 30개 궤적의 정상 유지 비율을 사용합니다. <a href="./assets/single-trajectories.png">단일 노드 전체 그림</a> · <a href="./assets/multi-trajectories.png">3노드 전체 그림</a></p>
+  </section>
+
+  <section class="poster-section" id="method" aria-labelledby="method-title">
+    <div class="poster-section-heading"><span>03 / METHOD</span><h2 id="method-title">모델을 어떻게 학습하고 시험했나요?</h2></div>
+    <p>학습과 경계 시험에 쓰인 정보를 분리했습니다. 디지털 트윈은 정상 신호와 그 신호에서 측정한 통계값을 받고, 참조 모형의 숨은 파라미터나 전이 이후 신호는 보지 않습니다.</p>
+    <ol class="poster-method-steps">
+      <li><span>01</span><div><h3>정상 자료 만들기</h3><p>Epileptor의 정상 조건에서 합성 신호를 생성합니다. 단일 노드는 18개, 3노드는 52개의 정상 학습 기록을 사용했습니다.</p></div></li>
+      <li><span>02</span><div><h3>측정 통계로 조건화하기</h3><p>단일 노드는 신호 표준편차와 순열 엔트로피, 3노드는 노드 평균과 표준편차를 사용합니다. 숨은 흥분성 파라미터는 트윈에 제공하지 않습니다.</p></div></li>
+      <li><span>03</span><div><h3>정상 자료로 모델 선택 후 고정하기</h3><p>모델 선택은 별도의 정상 검증 기록으로 수행합니다. 선택한 저수지 설정을 고정한 뒤 통계 좌표를 바꿔 새 궤적을 생성합니다.</p></div></li>
+      <li><span>04</span><div><h3>독립 궤적과 참조 모형 비교하기</h3><p>각 좌표에서 30개 궤적이 정상으로 남는지 셉니다. GT도 별도로 시뮬레이션하고 같은 정상 이탈 규칙으로 평가합니다. 단일 노드는 140초, 3노드는 200초 관찰합니다.</p></div></li>
+    </ol>
+    <p class="poster-small">GT와 트윈의 곡선을 같은 통계 축에 놓을 때는 정상 자료로 만든 보정식을 사용합니다. 학습 범위 밖의 축 위치에는 외삽이 포함됩니다.</p>
   </section>
 
   <section class="poster-section" id="explore" aria-labelledby="explore-title">
-    <div class="poster-section-heading"><span>02 / EXPLORE</span><h2 id="explore-title">좌표와 궤적을 함께 보기</h2></div>
-    <p>슬라이더 또는 그래프의 점을 선택하세요. 아래 파형은 선택한 <strong>바로 그 좌표</strong>에서 고정된 모델로 다시 생성한 예시입니다. 개수는 원래의 30회 반복 실험 결과입니다.</p>
+    <div class="poster-section-heading"><span>04 / RESULTS</span><h2 id="explore-title">이제 결과를 직접 살펴보세요.</h2></div>
+    <p>슬라이더 또는 그래프의 점을 선택하세요. 먼저 그 좌표에서 생성한 예시 파형을 보고, 이어서 원래의 독립 30회 시험에서 정상으로 남은 개수를 확인할 수 있습니다.</p>
     <div class="poster-tabs" role="tablist" aria-label="실험 선택">
       <button id="tab-single" type="button" role="tab" aria-selected="true" aria-controls="experiment-panel">단일 노드</button>
       <button id="tab-multi" type="button" role="tab" aria-selected="false" aria-controls="experiment-panel" tabindex="-1">3노드 네트워크</button>
     </div>
     <div class="poster-experiment" id="experiment-panel" role="tabpanel" aria-labelledby="tab-single">
       <div class="poster-experiment-head"><div><p class="poster-kicker" id="experiment-kind">SINGLE NODE EPILEPTOR</p><h3 id="experiment-title">신호의 흔들림이 커질 때</h3><p id="experiment-desc">표준편차 σ와 순열 엔트로피를 함께 바꾸며 정상 이탈을 살펴봅니다.</p></div><div class="poster-threshold"><span>디지털 트윈의 50% 경계</span><strong id="threshold-value">σ 0.3803</strong><small id="threshold-compare">참조 모형 0.3792</small></div></div>
-      <div class="poster-chart-wrap"><div class="poster-chart-title"><strong>정상 유지 비율</strong><div><span class="legend-scdt">디지털 트윈</span><span class="legend-gt">참조 모형 (GT)</span></div></div><p class="poster-scroll-hint">그래프를 좌우로 움직여 자세히 보기 ↔</p><div class="poster-svg-scroll"><svg id="chart" viewBox="0 0 760 330" role="img" aria-label="정상 유지 비율 그래프"></svg></div><p id="axis-label" class="poster-axis-label">표준편차 σ · 커질수록 전이 방향 →</p></div>
+      <div class="poster-chart-wrap"><div class="poster-chart-title"><strong>정상 유지 비율</strong><div><span class="legend-scdt">디지털 트윈</span><span class="legend-gt">참조 모형 (GT)</span></div></div><p class="poster-scroll-hint">그래프를 좌우로 움직여 자세히 보기 ↔</p><div class="poster-svg-scroll"><svg id="chart" viewBox="0 0 760 250" role="img" aria-label="정상 유지 비율 그래프"></svg></div><p id="axis-label" class="poster-axis-label">표준편차 σ · 커질수록 전이 방향 →</p></div>
       <div class="poster-controls"><label for="coordinate"><span>통계 좌표</span><strong id="coordinate-value">σ = 0.3803</strong></label><input id="coordinate" type="range" min="0" max="34" step="1" value="16"><div class="poster-scale"><span id="axis-start">낮은 σ</span><span id="axis-end">높은 σ</span></div></div>
-      <div class="poster-outcome"><p><span class="poster-outcome-number" id="survivor-count">15</span><span> / 30 궤적이 정상 유지</span></p><p id="result-explanation">나머지 궤적은 정상 이탈 기준에 걸렸습니다.</p><div class="poster-dots" id="dot-matrix" role="img" aria-label="30개 반복 실험 결과"></div></div>
       <div class="poster-waveform"><div class="poster-waveform-head"><div><span class="poster-kicker">GENERATED TRAJECTORY</span><h3>선택한 좌표의 생성 궤적</h3></div><span id="trajectory-coordinate"></span></div><p class="poster-scroll-hint">파형을 좌우로 움직여 자세히 보기 ↔</p><div class="poster-svg-scroll"><svg id="trajectory-chart" viewBox="0 0 760 250" role="img" aria-label="선택한 통계 좌표에서 생성한 신호 궤적"></svg></div><p id="trajectory-caption">30회 반복 중 하나가 아닌, 고정 모델에서 별도로 생성한 예시 궤적입니다.</p></div>
+      <div class="poster-outcome"><p><span class="poster-outcome-number" id="survivor-count">15</span><span> / 30 궤적이 정상 유지</span></p><p id="result-explanation">나머지 궤적은 정상 이탈 기준에 걸렸습니다.</p><div class="poster-dots" id="dot-matrix" role="img" aria-label="30개 반복 실험 결과"></div></div>
       <p class="poster-caveat" id="chart-caveat"></p>
     </div>
     <p class="poster-small">참조 모형(GT) 곡선은 Epileptor를 별도로 시험한 결과입니다. 가로축 정렬에는 정상 자료로 만든 보정식이 쓰였고 학습 범위 밖은 외삽입니다.</p>
   </section>
 
   <section class="poster-section" aria-labelledby="interpret-title">
-    <div class="poster-section-heading"><span>03 / INTERPRETATION</span><h2 id="interpret-title">읽을 때 주의할 점</h2></div>
+    <div class="poster-section-heading"><span>05 / INTERPRETATION</span><h2 id="interpret-title">읽을 때 주의할 점</h2></div>
     <div class="poster-facts"><div><strong>정상 이탈의 경계</strong><p>50% 경계가 참조 모형과 가까웠다는 결과입니다. 수학적 분기점 증명이나 임상 진단을 뜻하지 않습니다.</p></div><div><strong>이탈 뒤 파형</strong><p>트윈 출력은 이탈 후 상·하한에 포화될 수 있습니다. 그 구간의 파형을 실제 발작 모사로 해석할 수 없습니다.</p></div><div><strong>불확실성과 검증</strong><p>신뢰구간은 반복 궤적의 변동을 반영합니다. 모델 구조 전체의 불확실성을 포함하지 않으며, 정상 조건에서도 거짓 이탈이 있었습니다.</p></div></div>
     <details><summary>실험 그림과 상세 자료</summary><div class="poster-figures"><figure><img src="./assets/single-trajectories.png" alt="단일 노드 참조 모형과 트윈의 대표 궤적" loading="lazy"><figcaption>단일 노드 대표 궤적</figcaption></figure><figure><img src="./assets/multi-trajectories.png" alt="3노드 참조 모형과 트윈의 대표 궤적" loading="lazy"><figcaption>3노드 대표 궤적</figcaption></figure></div><p><a href="./assets/single-README.md">단일 노드 상세 ↗</a> · <a href="./assets/multi-RESULTS.md">3노드 상세 ↗</a></p></details>
   </section>

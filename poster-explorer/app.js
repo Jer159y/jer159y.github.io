@@ -130,6 +130,10 @@ function updateSelection() {
   const px=45+(mode==='multi'?max-p.x:p.x-min)/(max-min)*682;
   $('#selected-line').setAttribute('x1',px);$('#selected-line').setAttribute('x2',px);
   $('#selected-dot').setAttribute('cx',px);$('#selected-dot').setAttribute('cy',285-rate*263);
+  const chartScroll=$('#chart').parentElement;
+  if(chartScroll.scrollWidth>chartScroll.clientWidth){
+    chartScroll.scrollLeft=px/760*$('#chart').clientWidth-chartScroll.clientWidth/2;
+  }
   drawTrajectory();
 }
 async function init(){

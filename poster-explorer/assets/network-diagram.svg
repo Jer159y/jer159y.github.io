@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 220" role="img" aria-labelledby="title description">
+  <title id="title">3노드 Epileptor 네트워크</title>
+  <desc id="description">Epileptor 세 노드가 삼각형으로 연결된다. 연결 가중치는 1.0, 0.45, 0.70이고 공통 숨은 조건 람다에 노드별 오프셋을 더한다.</desc>
+  <rect x="1" y="1" width="438" height="218" rx="15" fill="#f7fafb" stroke="#dce5e8"/>
+  <text x="22" y="29" fill="#49616b" font-size="13" font-weight="700">3노드 네트워크 · 연결된 GT</text>
+  <path d="M129 78H298M112 107 193 155M327 107 247 155" fill="none" stroke="#9bb8c7" stroke-width="6" stroke-linecap="round"/>
+  <g fill="#fff" stroke="#4a88a6" stroke-width="2"><circle cx="100" cy="88" r="30"/><circle cx="329" cy="88" r="30"/><circle cx="220" cy="170" r="30"/></g>
+  <g fill="#24536d" font-size="16" font-weight="700" text-anchor="middle"><text x="100" y="94">E₀</text><text x="329" y="94">E₁</text><text x="220" y="176">E₂</text></g>
+  <g fill="#476675" font-size="11" text-anchor="middle"><text x="215" y="69">1.00</text><text x="134" y="142">0.45</text><text x="303" y="142">0.70</text></g>
+  <rect x="29" y="183" width="382" height="24" rx="7" fill="#eef3fb"/>
+  <text x="220" y="199" text-anchor="middle" fill="#2e5f92" font-size="11">공통 숨은 조건 λ → 각 노드 x₀ = λ + [0, −0.05, −0.10]</text>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 220" role="img" aria-labelledby="title description">
+  <title id="title">통계 조건부 디지털 트윈 SCDT</title>
+  <desc id="description">정상 신호와 그 신호에서 측정한 통계가 저수지 모델로 들어간다. 숨은 흥분도는 입력하지 않고 고정된 모델이 새로운 통계 조건에서 자율 궤적을 생성한다.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#66808d"/></marker></defs>
+  <rect x="1" y="1" width="438" height="218" rx="15" fill="#f7fafb" stroke="#dce5e8"/>
+  <text x="22" y="29" fill="#49616b" font-size="13" font-weight="700">통계 조건부 디지털 트윈 · SCDT</text>
+  <rect x="19" y="59" width="101" height="104" rx="11" fill="#eef3fb" stroke="#9bb8d8"/>
+  <text x="69" y="80" text-anchor="middle" fill="#255d9f" font-size="12" font-weight="700">정상 신호만</text>
+  <path d="M29 120l7-2 5-18 4 21 7-4 6-2 5-19 4 25 8-5 6-2 5-13 4 18 8-5" fill="none" stroke="#1769b3" stroke-width="2"/>
+  <path d="M123 111H147" stroke="#66808d" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="151" y="62" width="102" height="98" rx="11" fill="#fff" stroke="#b9cbd2"/>
+  <text x="202" y="90" text-anchor="middle" fill="#274b5c" font-size="12" font-weight="700">측정 통계</text>
+  <text x="202" y="115" text-anchor="middle" fill="#53707c" font-size="13">σ · PE</text>
+  <text x="202" y="138" text-anchor="middle" fill="#53707c" font-size="10">또는 평균 · σ</text>
+  <path d="M256 111H279" stroke="#66808d" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="284" y="59" width="132" height="104" rx="11" fill="#eef7ee" stroke="#9ac09e"/>
+  <path d="M313 101 338 80 365 102 340 131 383 120M313 101 340 131M338 80 383 120" fill="none" stroke="#70a277" stroke-width="1.5"/>
+  <g fill="#fff" stroke="#4a8f65" stroke-width="2"><circle cx="313" cy="101" r="8"/><circle cx="338" cy="80" r="8"/><circle cx="365" cy="102" r="8"/><circle cx="340" cy="131" r="8"/><circle cx="383" cy="120" r="8"/></g>
+  <text x="350" y="151" text-anchor="middle" fill="#35654b" font-size="11" font-weight="700">고정된 저수지 모델</text>
+  <text x="220" y="193" text-anchor="middle" fill="#a74b4b" font-size="11">숨은 흥분도 x₀ · λ는 트윈의 입력이 아님</text>
+</svg>

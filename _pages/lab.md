@@ -18,4 +18,9 @@ nav_order: 4
     <h3>Marine Systems Lab <span>→</span></h3>
     <p>AMOC tipping, marine heatwaves on real OISST data, geostrophic adjustment, wind-driven gyres with drifters, and two-layer QG eddies.</p>
   </a>
+  <a class="home-link-card" href="{{ '/poster-explorer/' | relative_url }}">
+    <span class="home-card-number">03 / COLLABORATION</span>
+    <h3>Epileptor Digital Twin <span>→</span></h3>
+    <p>An interactive guide to a collaborative seizure-transition simulation study. Explore the locked results and their limits; this is not a clinical predictor.</p>
+  </a>
 </div>

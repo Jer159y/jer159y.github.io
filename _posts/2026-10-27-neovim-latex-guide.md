@@ -124,13 +124,13 @@ $xelatex = 'xelatex -synctex=1 -interaction=nonstopmode -file-line-error %O %S';
 
 ## 9. 최소 점검 체크리스트
 
-- [ ]  `latexmk -v` 실행
-- [ ]  `xelatex --version` 실행 (한글 문서)
-- [ ]  `:VimtexInfo`에 compiler/viewer 표시
-- [ ]  작은 샘플을 CLI에서 PDF로 컴파일
-- [ ]  `\ll` 후 저장 시 PDF 갱신
-- [ ]  Skim에서 PDF 열림
-- [ ]  forward search 확인
-- [ ]  필요하다면 inverse search 별도 구성
+- [ ] `latexmk -v` 실행
+- [ ] `xelatex --version` 실행 (한글 문서)
+- [ ] `:VimtexInfo`에 compiler/viewer 표시
+- [ ] 작은 샘플을 CLI에서 PDF로 컴파일
+- [ ] `\ll` 후 저장 시 PDF 갱신
+- [ ] Skim에서 PDF 열림
+- [ ] forward search 확인
+- [ ] 필요하다면 inverse search 별도 구성
 
 참고: [VimTeX 공식 README](https://github.com/lervag/vimtex), [latexmk CTAN](https://ctan.org/pkg/latexmk), [Skim](https://skim-app.sourceforge.io/).

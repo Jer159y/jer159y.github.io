@@ -30,6 +30,7 @@ pagination:
   {% endif %}
 
 {% if site.posts.size == 0 %}
+
 <div class="empty-state">
   <p class="home-eyebrow">WRITING</p>
   <h2>Notes are on their way.</h2>

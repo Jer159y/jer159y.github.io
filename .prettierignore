@@ -11,3 +11,8 @@ _sass/font-awesome/*.scss
 _sass/tabler-icons/*.scss
 _scripts/*
 assets/js/lab/**
+
+.obsidian/**
+.trash/**
+poster-explorer/data/**
+google40bd80d56937c1c5.html

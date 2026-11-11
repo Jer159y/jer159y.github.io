@@ -17,42 +17,42 @@ tags: [tools]
 
 ## 세션 명령 — 반드시 익히기
 
-| 셸 명령 | 동작 |
-| --- | --- |
-| `tmux new -s research` | 새 세션 생성·접속; 같은 이름 존재 시 오류 |
-| `tmux new -A -s research` | 기존 세션이 있으면 접속, 없으면 생성 |
-| `tmux ls` | 세션 목록 |
-| `tmux attach -t research` | 기존 `research` 세션에 접속 |
-| `tmux attach -d -t research` | 다른 클라이언트를 분리하고 이 기기에서 접속; 다른 사용 기기 화면을 끊음 |
-| `tmux detach-client` | 현재 tmux 클라이언트 분리(세션 내부에서 실행할 경우) |
-| `tmux rename-session -t research work` | 세션 이름 변경 |
-| `tmux kill-session -t research` | 세션과 내부 작업 종료 가능 — **주의** |
-| `tmux kill-server` | 모든 tmux 세션 종료 — **매우 주의** |
-| `tmux list-windows -t research` | 창 목록 |
-| `tmux list-panes -a` | 모든 pane 정보 |
-| `tmux list-panes -F '#{pane_index} #{pane_id} #{pane_current_command}'` | vim-slime용 pane 확인 |
+| 셸 명령                                                                 | 동작                                                                    |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `tmux new -s research`                                                  | 새 세션 생성·접속; 같은 이름 존재 시 오류                               |
+| `tmux new -A -s research`                                               | 기존 세션이 있으면 접속, 없으면 생성                                    |
+| `tmux ls`                                                               | 세션 목록                                                               |
+| `tmux attach -t research`                                               | 기존 `research` 세션에 접속                                             |
+| `tmux attach -d -t research`                                            | 다른 클라이언트를 분리하고 이 기기에서 접속; 다른 사용 기기 화면을 끊음 |
+| `tmux detach-client`                                                    | 현재 tmux 클라이언트 분리(세션 내부에서 실행할 경우)                    |
+| `tmux rename-session -t research work`                                  | 세션 이름 변경                                                          |
+| `tmux kill-session -t research`                                         | 세션과 내부 작업 종료 가능 — **주의**                                   |
+| `tmux kill-server`                                                      | 모든 tmux 세션 종료 — **매우 주의**                                     |
+| `tmux list-windows -t research`                                         | 창 목록                                                                 |
+| `tmux list-panes -a`                                                    | 모든 pane 정보                                                          |
+| `tmux list-panes -F '#{pane_index} #{pane_id} #{pane_current_command}'` | vim-slime용 pane 확인                                                   |
 
 ## 세션 안 단축키 (기본 키맵)
 
-| 키 | 결과 |
-| --- | --- |
-| `Ctrl+b → d` | detach: **프로세스 유지**, 바깥 셸로 |
-| `Ctrl+b → c` | 새 window |
-| `Ctrl+b → n` / `p` | 다음 / 이전 window |
-| `Ctrl+b → w` | window 목록/선택 |
-| `Ctrl+b → 0…9` | window 번호로 이동 |
-| `Ctrl+b → ,` | window 이름 변경 |
-| `Ctrl+b → %` | 좌우 분할 (`%`는 보통 Shift+5) |
-| `Ctrl+b → "` | 위아래 분할 |
-| `Ctrl+b → 방향키` | pane 이동 |
-| `Ctrl+b → o` | 다음 pane으로 이동 |
-| `Ctrl+b → q` | pane 번호 표시 |
-| `Ctrl+b → z` | 현재 pane 확대/복귀 (모바일에 유용) |
-| `Ctrl+b → x` | 현재 pane 종료 확인 (실행 작업 종료될 수 있음) |
-| `Ctrl+b → [` | 복사 모드/스크롤 보기 (`q`로 나가기) |
-| `Ctrl+b → :` | tmux 명령 프롬프트 |
-| `Ctrl+b → s` | 세션 목록/선택 |
-| `Ctrl+b → ?` | 실제 사용 가능한 키 바인딩 목록 |
+| 키                 | 결과                                           |
+| ------------------ | ---------------------------------------------- |
+| `Ctrl+b → d`       | detach: **프로세스 유지**, 바깥 셸로           |
+| `Ctrl+b → c`       | 새 window                                      |
+| `Ctrl+b → n` / `p` | 다음 / 이전 window                             |
+| `Ctrl+b → w`       | window 목록/선택                               |
+| `Ctrl+b → 0…9`     | window 번호로 이동                             |
+| `Ctrl+b → ,`       | window 이름 변경                               |
+| `Ctrl+b → %`       | 좌우 분할 (`%`는 보통 Shift+5)                 |
+| `Ctrl+b → "`       | 위아래 분할                                    |
+| `Ctrl+b → 방향키`  | pane 이동                                      |
+| `Ctrl+b → o`       | 다음 pane으로 이동                             |
+| `Ctrl+b → q`       | pane 번호 표시                                 |
+| `Ctrl+b → z`       | 현재 pane 확대/복귀 (모바일에 유용)            |
+| `Ctrl+b → x`       | 현재 pane 종료 확인 (실행 작업 종료될 수 있음) |
+| `Ctrl+b → [`       | 복사 모드/스크롤 보기 (`q`로 나가기)           |
+| `Ctrl+b → :`       | tmux 명령 프롬프트                             |
+| `Ctrl+b → s`       | 세션 목록/선택                                 |
+| `Ctrl+b → ?`       | 실제 사용 가능한 키 바인딩 목록                |
 
 ## 실제 작업 흐름
 
@@ -70,14 +70,14 @@ window 1에서 편집기나 AI 코딩 도구를 띄우고, `Ctrl+b → c`로 win
 
 ## 종료·중단의 차이
 
-| 동작 | 무슨 일이 생기나? |
-| --- | --- |
-| `Ctrl+b → d` | tmux 화면만 떠남. 실행 중 작업 유지 |
-| SSH 연결 종료 | tmux가 살아 있다면 내부 작업 유지 |
-| `Ctrl+c` | **현재 foreground 프로세스에 중단 신호**; Julia 실험이나 AI 실행 중단 가능 |
-| `exit` / `Ctrl+d` | 현재 셸 종료. 마지막 pane이라면 session도 종료될 수 있음 |
-| `tmux kill-session` | 해당 세션의 프로세스 종료 가능 |
-| 서버 재부팅 | tmux 프로세스와 메모리 상태 소실 |
+| 동작                | 무슨 일이 생기나?                                                          |
+| ------------------- | -------------------------------------------------------------------------- |
+| `Ctrl+b → d`        | tmux 화면만 떠남. 실행 중 작업 유지                                        |
+| SSH 연결 종료       | tmux가 살아 있다면 내부 작업 유지                                          |
+| `Ctrl+c`            | **현재 foreground 프로세스에 중단 신호**; Julia 실험이나 AI 실행 중단 가능 |
+| `exit` / `Ctrl+d`   | 현재 셸 종료. 마지막 pane이라면 session도 종료될 수 있음                   |
+| `tmux kill-session` | 해당 세션의 프로세스 종료 가능                                             |
+| 서버 재부팅         | tmux 프로세스와 메모리 상태 소실                                           |
 
 ## 여러 기기에서 동시에 연결할 때
 

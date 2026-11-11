@@ -1,10 +1,9 @@
 ---
 layout: page
-title: 
-description: 
-img: 
+title:
+description:
+img:
 importance: 1
-category: 
+category:
 giscus_comments:
 ---
-

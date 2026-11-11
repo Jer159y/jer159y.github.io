@@ -88,7 +88,9 @@
 .home-link-card {
   color: var(--global-text-color);
   min-height: 12rem;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
 
   h3 {
     display: flex;

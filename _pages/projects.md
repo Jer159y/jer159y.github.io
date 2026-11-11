@@ -9,6 +9,7 @@ horizontal: true
 ---
 
 {% if site.projects.size == 0 %}
+
 <div class="empty-state">
   <p class="home-eyebrow">PROJECTS</p>
   <h2>Projects are on their way.</h2>

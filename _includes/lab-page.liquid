@@ -35,14 +35,19 @@
   <section id="lab-sim" class="ol-section">
     <div class="ol-head">
       <h2>직접 적분하기</h2>
-      <p>모든 계산은 브라우저의 Web Worker에서 실제로 수치 적분합니다. 파라미터를 바꾼 뒤 적용하면 처음부터 다시 시작합니다. 아래 버튼으로 같은 실행을 여러 시각화로 바꿔 볼 수 있습니다.</p>
+      <p>
+        모든 계산은 브라우저의 Web Worker에서 실제로 수치 적분합니다. 파라미터를 바꾼 뒤 적용하면 처음부터 다시 시작합니다. 아래 버튼으로 같은 실행을
+        여러 시각화로 바꿔 볼 수 있습니다.
+      </p>
     </div>
     <div id="lab-tabs" class="model-tabs cl-tabs" role="tablist" aria-label="시스템 선택"></div>
     <p id="lab-summary"></p>
     <div class="sim-layout">
       <aside class="sim-controls ol-card">
         <div id="lab-params"></div>
-        <label id="lab-keep-wrap" class="ol-check" hidden><input type="checkbox" id="lab-keep" checked> 현재 상태에서 이어가기 (hysteresis 실험)</label>
+        <label id="lab-keep-wrap" class="ol-check" hidden
+          ><input type="checkbox" id="lab-keep" checked> 현재 상태에서 이어가기 (hysteresis 실험)</label
+        >
         <button type="button" id="lab-apply" class="ol-btn ol-btn-primary">설정 적용</button>
         <p id="lab-pending" class="sim-pending" hidden>설정이 바뀌었습니다. 적용해야 계산에 반영됩니다.</p>
       </aside>
@@ -55,11 +60,23 @@
             <button type="button" id="lab-particles" class="ol-btn" hidden>표류 입자 다시 뿌리기</button>
             <button type="button" id="lab-experiment" class="ol-btn" hidden>앙상블 실험 실행</button>
           </div>
-          <label for="lab-rate">재생 속도<select id="lab-rate"><option value="1">1×</option><option value="3" selected>3×</option><option value="10">10×</option></select></label>
+          <label for="lab-rate"
+            >재생 속도<select id="lab-rate">
+              <option value="1">1×</option>
+              <option value="3" selected>3×</option>
+              <option value="10">10×</option>
+            </select></label
+          >
         </div>
         <div class="sim-field-top">
           <label id="lab-field-wrap" for="lab-field" hidden>표시할 장<select id="lab-field"></select></label>
-          <label id="lab-section-wrap" for="lab-section" hidden>단면 y<select id="lab-section"><option value="0.25" selected>0.25 (남쪽 gyre)</option><option value="0.5">0.5</option><option value="0.75">0.75 (북쪽 gyre)</option></select></label>
+          <label id="lab-section-wrap" for="lab-section" hidden
+            >단면 y<select id="lab-section">
+              <option value="0.25" selected>0.25 (남쪽 gyre)</option>
+              <option value="0.5">0.5</option>
+              <option value="0.75">0.75 (북쪽 gyre)</option>
+            </select></label
+          >
           <b id="lab-time">t = 0</b>
         </div>
         <div id="lab-status" role="status" aria-live="polite">계산기를 준비하고 있습니다…</div>
@@ -110,7 +127,10 @@
   <section id="lab-sources" class="ol-section">
     <div class="ol-head"><h2>참고문헌과 자료</h2></div>
     <ul id="lab-refs" class="cl-refs"></ul>
-    <p class="ol-fine">모든 시스템은 교육·탐색용으로 단순화한 형태입니다. 매개변수는 문헌의 전형적인 값이나 그 근처에서 골랐지만 실제 해역·기후의 정량적 예측을 제공하지 않습니다. 관측 자료는 원 제공처의 조건을 따르며, 이 페이지의 처리(지점 추출·기후값 계산)는 원자료와 구분됩니다.</p>
+    <p class="ol-fine">
+      모든 시스템은 교육·탐색용으로 단순화한 형태입니다. 매개변수는 문헌의 전형적인 값이나 그 근처에서 골랐지만 실제 해역·기후의 정량적 예측을
+      제공하지 않습니다. 관측 자료는 원 제공처의 조건을 따르며, 이 페이지의 처리(지점 추출·기후값 계산)는 원자료와 구분됩니다.
+    </p>
   </section>
 </div>
 

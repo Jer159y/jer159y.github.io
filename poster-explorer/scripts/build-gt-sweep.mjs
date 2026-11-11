@@ -3,10 +3,10 @@
 // and single/CODE/strict_single_node_scdt.py in the source research release.
 // This sweep uses common seeded noise at every x0 to make the slider easier to
 // compare. It is separate from the locked 30-member survival experiment.
-import fs from 'node:fs';
-import path from 'node:path';
+import fs from "node:fs";
+import path from "node:path";
 
-const X0_VALUES = [-2.24, -2.20, -2.16, -2.12, -2.10, -2.08, -2.07, -2.06, -2.05, -2.04, -2.03, -2.02, -2.00, -1.98];
+const X0_VALUES = [-2.24, -2.2, -2.16, -2.12, -2.1, -2.08, -2.07, -2.06, -2.05, -2.04, -2.03, -2.02, -2.0, -1.98];
 const BASE_X0 = -2.18;
 const WARMUP_SECONDS = 20;
 const ROLLOUT_SECONDS = 140;
@@ -65,7 +65,7 @@ function step(s, x0, normal) {
 function simulate(targetX0) {
   const normal = random(SEED);
   const base = [-1.55, -11.8, 3.05, -0.82, 0, 0];
-  const scale = [0.03, 0.20, 0.04, 0.02, 0.02, 0.03];
+  const scale = [0.03, 0.2, 0.04, 0.02, 0.02, 0.03];
   let state = base.map((value, i) => value + scale[i] * normal());
   for (let i = 0; i < WARMUP_SECONDS * HZ; i++) state = step(state, BASE_X0, normal);
 
@@ -93,9 +93,9 @@ function simulate(targetX0) {
 
 const data = {
   metadata: {
-    model: 'single-node Proix-2017 Epileptor GT',
-    source: 'Digital_Twin_for_Seizure_Prediction-main/single/CODE/paper_epileptor_core.py',
-    purpose: 'illustrative parameter sweep; separate from the locked survival counts',
+    model: "single-node Proix-2017 Epileptor GT",
+    source: "Digital_Twin_for_Seizure_Prediction-main/single/CODE/paper_epileptor_core.py",
+    purpose: "illustrative parameter sweep; separate from the locked survival counts",
     baseX0: BASE_X0,
     warmupSeconds: WARMUP_SECONDS,
     rolloutSeconds: ROLLOUT_SECONDS,
@@ -104,12 +104,12 @@ const data = {
     displayHz: HZ / OUTPUT_STRIDE,
     noiseVariance: 0.0025,
     seed: SEED,
-    departureRule: 'first x2-x1 <= -0.5 after 5 seconds; visual guide only',
-    colorInterval: 'from first crossing through one second after the last crossing',
+    departureRule: "first x2-x1 <= -0.5 after 5 seconds; visual guide only",
+    colorInterval: "from first crossing through one second after the last crossing",
   },
   traces: X0_VALUES.map(simulate),
 };
-const output = path.join(import.meta.dirname, '..', 'data', 'gt-parameter-trajectories.json');
+const output = path.join(import.meta.dirname, "..", "data", "gt-parameter-trajectories.json");
 fs.writeFileSync(output, JSON.stringify(data));
-console.log(data.traces.map(trace => `${trace.x0.toFixed(2)}: ${trace.onset ?? 'normal'}`).join('\n'));
+console.log(data.traces.map((trace) => `${trace.x0.toFixed(2)}: ${trace.onset ?? "normal"}`).join("\n"));
 console.log(output);

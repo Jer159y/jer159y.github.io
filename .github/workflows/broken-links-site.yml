@@ -48,5 +48,5 @@ jobs:
         uses: lycheeverse/lychee-action@v1.9.0
         with:
           fail: true
-          # only check local links
-          args: --offline --verbose --no-progress '_site/**/*.html'
+          # Normalize theme image paths while preserving page-specific assets.
+          args: --offline --remap '_site(/?.*)/assets/img/(.*) _site/assets/img/$2' --verbose --no-progress '_site/**/*.html'

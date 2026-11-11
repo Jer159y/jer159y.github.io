@@ -8,24 +8,24 @@ These are **simulation results**, not a validated clinical seizure predictor. Th
 
 ## Experiments
 
-| Model | Conditioning statistics | Ground-truth 50% boundary | SCDT 50% boundary |
-| --- | --- | ---: | ---: |
-| Single-node Epileptor | Signal standard deviation (σ), permutation entropy | σ = 0.3792 | σ = 0.3803 |
-| Three-node Epileptor network | Node-averaged mean, standard deviation | mean = 0.5906 | mean = 0.5921 |
+| Model                        | Conditioning statistics                            | Ground-truth 50% boundary | SCDT 50% boundary |
+| ---------------------------- | -------------------------------------------------- | ------------------------: | ----------------: |
+| Single-node Epileptor        | Signal standard deviation (σ), permutation entropy |                σ = 0.3792 |        σ = 0.3803 |
+| Three-node Epileptor network | Node-averaged mean, standard deviation             |             mean = 0.5906 |     mean = 0.5921 |
 
 The difference is approximately 0.3% of the respective GT coordinate. These values summarize a locked reservoir and the specified test protocol; bootstrap intervals account for rollout variability, not reservoir-seed or model uncertainty. The three-node model also has intermittent false departures within the normal training range. After departure, SCDT trajectories often saturate at the output clip bound, so the post-transition waveform should **not** be interpreted as a faithful seizure waveform.
 
 ## Repository layout
 
-| Path | Contents |
-| --- | --- |
-| [`single/CODE/`](single/CODE/) | Single-node Epileptor, SCDT training/BO, survival evaluation and figures |
-| [`single/data/`](single/data/) and [`single/results/`](single/results/) | Synthetic records, sweep tables and machine-readable summaries |
-| [`single/figure/`](single/figure/) | Final single-node plots |
-| [`multi/CODE/`](multi/CODE/) | Three-node network GT, SCDT training/BO, controls and figures |
-| [`multi/data/`](multi/data/) and [`multi/results/`](multi/results/) | Synthetic records, sweep tables and machine-readable summaries |
-| [`multi/figure/`](multi/figure/) | Final network plots |
-| [`AICP_2026_poster.pdf`](AICP_2026_poster.pdf) | Research poster describing the question and headline results |
+| Path                                                                    | Contents                                                                 |
+| ----------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| [`single/CODE/`](single/CODE/)                                          | Single-node Epileptor, SCDT training/BO, survival evaluation and figures |
+| [`single/data/`](single/data/) and [`single/results/`](single/results/) | Synthetic records, sweep tables and machine-readable summaries           |
+| [`single/figure/`](single/figure/)                                      | Final single-node plots                                                  |
+| [`multi/CODE/`](multi/CODE/)                                            | Three-node network GT, SCDT training/BO, controls and figures            |
+| [`multi/data/`](multi/data/) and [`multi/results/`](multi/results/)     | Synthetic records, sweep tables and machine-readable summaries           |
+| [`multi/figure/`](multi/figure/)                                        | Final network plots                                                      |
+| [`AICP_2026_poster.pdf`](AICP_2026_poster.pdf)                          | Research poster describing the question and headline results             |
 
 The detailed experimental protocols and caveats are in [`single/README.md`](single/README.md), [`multi/DESIGN.md`](multi/DESIGN.md), and [`multi/RESULTS.md`](multi/RESULTS.md). References there to local archives concern diagnostic history omitted from this focused release.
 

@@ -37,9 +37,11 @@
   type: time_table
   contents:
     - title: Resynchronization Keeps Reservoir Ensembles Healthy in Long-Term Prediction
-      institution: Poster (upcoming), KSIAM Annual Meeting
+      institution: Poster, KSIAM Annual Meeting
       department: Soobin Choi and Pilwon Kim
       year: 2026.11
+      description:
+        - <a href="/assets/pdf/ksiam2026-resynchronization-poster.pdf">Poster (PDF)</a>
     - title: Long-term Prediction of Spatiotemporal Chaotic Systems Using Ensemble Reservoir Computing
       institution: Poster, KSIAM Annual Meeting
       department: Soobin Choi and Pilwon Kim
@@ -82,13 +84,13 @@
   contents:
     - title: Graduate student session, Lunch Convergence department seminar
       institution: UNIST Department of Mathematical Sciences
-      year: 2026.10
+      year: 2026.11
     - title: Lab TA, Future Science Talent intensive program
       institution: UNIST
       year: 2026.08
     - title: Assistant instructor, "The Power of Mathematics Behind AI" lecture
       institution: Ulsan Mathematics Culture Center (January and July)
-      year: 2026
+      year: 2026.02
     - title: "Career mentoring talk: What do math graduate students do?"
       institution: Ulsan Science High School
       year: 2026.05
